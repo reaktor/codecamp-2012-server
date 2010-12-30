@@ -120,7 +120,10 @@ var ValueVisualizer = function(initMessage) {
         var maxValue = maxValues[challengeName]
         _.each(values[challengeName], function(value, contenderName) {
             var percent = Math.round(100 * value / maxValue)
-            resultMapper.resultCellFor(challengeName, contenderName).find(".value-bar").css('height', percent + "%")
+            var bar = resultMapper.resultCellFor(challengeName, contenderName).find(".value-bar");
+            bar.css('height', percent + "%")
+            bar.css('top', (100 - percent) + "%")
+            bar.css('position', 'relative')
         })
     }
     return {showValue : showValue}
@@ -155,6 +158,7 @@ function challengeStartHandler(startMessage) {
 
 function contenderFailHandler(failMessage) {
     var resultCell = resultMapper.resultCellFor(failMessage.challengeName, failMessage.contenderName)
+    resultCell.addClass("fail")
     resultCell.append('<img class="fail" src="images/fail_anim.gif"/>')
 }
 

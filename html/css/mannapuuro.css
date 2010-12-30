@@ -41,5 +41,10 @@ body {
 .challenge-results.completed .contender-result .score { display: block; }
 .challenge-results.completed img.fail { display: none; }
 .challenge-results.current .contender-result .result { display: block; }
+.fail .value-graph { display : none; }
 .challenge-results.current .contender-result .result .value-graph { height : 5em }
 .challenge-results.current .contender-result .result .value-bar { background-color: green }
+.challenge-results.current .contender-result .result .value-bar .value {
+  position: relative;
+  top: -1.2em;
+}

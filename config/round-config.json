@@ -3,16 +3,13 @@
         "name":"Iso reppu, pienet esineet",
         "timeout":10000,
         "contents":[
-            {
-                "id":1,
-                "weight":10,
-                "value":100
-            },
-            {
-                "id":2,
-                "weight":100,
-                "value":200
-            }
+            {"id":1, "weight":10,"value":40},
+            {"id":2, "weight":40,"value":100},
+            {"id":3, "weight":30,"value":200},
+            {"id":4, "weight":50,"value":300},
+            {"id":5, "weight":30,"value":100},
+            {"id":6, "weight":90,"value":80},
+            {"id":7, "weight":70,"value":200}
         ],
         "capacity":99
     },

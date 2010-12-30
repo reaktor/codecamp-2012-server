@@ -50,6 +50,30 @@ function ContenderWhichReturnsNFirstItemsFromChallenge(numberOfItemsToKeep) {
         return idsOfKeptItems;
     });
 }
+function RandomContender() {
+    return new Contender(function(challenge) {
+        function pickRandom(items) {
+            var index = Math.floor(Math.random() * items.length);
+            var item = items[index];
+            items.splice(index, 1);
+            return item
+        }
+        var itemsLeft = _.clone(challenge.contents)
+        var keptItems = []
+        var item = pickRandom(itemsLeft);
+        var totalWeight = 0;
+        while (item && item.weight + totalWeight <= challenge.capacity) {
+            keptItems.push(item);
+            totalWeight += item.weight
+            item = pickRandom(itemsLeft)
+        }
+        var idsOfKeptItems = keptItems.map(function(item) {
+            return item.id
+        })
+        return idsOfKeptItems;
+    });
+}
+
 // Object -> Contender
 function ContenderWithFixedResponse(response) {
     return new Contender(function(challenge) {
@@ -68,3 +92,4 @@ exports.Contender = Contender
 exports.ContenderWhichReturnsNFirstItemsFromChallenge = ContenderWhichReturnsNFirstItemsFromChallenge
 exports.ContenderWithFixedResponse = ContenderWithFixedResponse
 exports.ContenderWithEmptyResponse = ContenderWithEmptyResponse
+exports.RandomContender = RandomContender
