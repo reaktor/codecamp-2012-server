@@ -26,6 +26,7 @@ IN PROGRESS
 
 BACKLOG
 
+- Accept 0 value
 - Visualization: emphasize challenge winner
 - Visualization: emphasize overall winner even moar
 - Visualization: fancy animations

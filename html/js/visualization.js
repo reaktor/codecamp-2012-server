@@ -19,7 +19,7 @@ var Handbrake = function(handler) {
         if(queue.length > 0) {
             handler(queue.shift())
         }
-    }, 100)
+    }, 500)
     return function(message) {
         queue.push(message)
     }
@@ -64,8 +64,11 @@ var ContenderMapper = function(initMessage) {
     function associate(element, contenderName) {
         element.addClass('contender-' + contenderId(contenderName))
     }
+    function totalScoreCellFor(contenderName) {
+        return $('.contender-total.contender-' + contenderId(contenderName))
+    }
     return {
-        contenderId : contenderId, associate: associate
+        contenderId : contenderId, associate: associate, totalScoreCellFor : totalScoreCellFor
     }
 }
 var contenderMapper;
@@ -93,6 +96,9 @@ function initHandler(initMessage) {
             contenderMapper.associate(contenderResultElement, contenderName)
         })
     })
+    Template.renderElements($('.total-results'), "contender-total", initMessage.contenders, function(contenderName, element) {
+        contenderMapper.associate(element, contenderName)
+    })
 }
 function challengeStartHandler(startMessage) {
     challengeMapper.rowFor(startMessage.challengeName).addClass("current");
@@ -115,7 +121,18 @@ function challengeEndHandler(endMessage) {
     _.each(endMessage.scores, function(score, contenderName) {
         var resultCell = resultMapper.resultCellFor(endMessage.challengeName, contenderName)
         resultCell.children(".score").text(score)
+        incrementTotal(contenderName, score)
     })
+    function toInt(text) {
+        if (!text.trim()) {
+            return 0;
+        }
+        return parseInt(text);
+    }
+    function incrementTotal(contenderName, score) {
+        var cell = contenderMapper.totalScoreCellFor(contenderName);
+        cell.text(score + toInt(cell.text()));
+    }
 }
 
 var handlers = {
