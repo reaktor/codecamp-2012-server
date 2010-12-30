@@ -19,6 +19,7 @@ body {
   border-left: 1px solid #626262;
   font-weight: normal;
   font-size: 0.9em;
+  width: 6em;
 }
 .challenge-results.not-started td {color: #8f8f8f}
 .challenge-results.current {
@@ -51,6 +52,8 @@ body {
   border-radius: 3px;
   background-image:url('../images/green-bar.png');
   background-repeat:repeat-y;
+  margin: 0 auto;
+  width: 62px;
 }
 .challenge-results.current .contender-result .result .value-bar .value {
   position: relative;
