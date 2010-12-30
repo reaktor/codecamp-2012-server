@@ -22,7 +22,7 @@ body {
 }
 .challenge-results.not-started td {color: #8f8f8f}
 .challenge-results.current {
-  height: 8em;
+  height: 7em;
   background: -moz-linear-gradient(100% 100% 90deg, #676767, #454545);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#454545), to(#676767));
 }
@@ -42,7 +42,10 @@ body {
 .challenge-results.completed img.fail { display: none; }
 .challenge-results.current .contender-result .result { display: block; }
 .fail .value-graph { display : none; }
-.challenge-results.current .contender-result .result .value-graph { height : 5em }
+.challenge-results.current .contender-result .result .value-graph {
+  height : 6em;
+  margin-top: 1em;
+}
 .challenge-results.current .contender-result .result .value-bar { background-color: green }
 .challenge-results.current .contender-result .result .value-bar .value {
   position: relative;
