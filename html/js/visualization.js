@@ -26,8 +26,8 @@ var Handbrake = function(handler) {
 }
 var Pihtari = function(handler) {
     var queue = []
-    $(document).click(function () {
-        if(queue.length > 0) {
+    $(document).click(function (e) {
+        if(queue.length > 0 && e.button == 0) {
             handler(queue.shift())
         }
     })
