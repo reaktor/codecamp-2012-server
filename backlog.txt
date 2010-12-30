@@ -1,0 +1,36 @@
+DONE
+
+- Connects to client
+- Sends JSON challenge
+- Sends challenge to all contenders simultaneously
+- Has timeout
+- Calculates value of each answer
+- Validate for overweight
+- Round configuration: for each challenge: display name, timeout, JSON
+- Scores contenders
+- Contender configuration: ip, port, display name
+- Scoring configuration
+- More robust timeout handling (does not allow cheating)
+- Reads configuration from files
+- Serve static content
+
+IN REVIEW
+
+IN PROGRESS
+
+BACKLOG
+
+- Balaillaan Saurin kanssa
+- TODOs
+- Sums up results of 5 challenges (Maybe in client?)
+- Validate configuration (unique contender and challenge names)
+- Generates data based on parameters given in round configuration (number of items, bag size, weight and value distributions)
+- Visualization: show rounds
+- Visualization: show team results (team name, value, score, weight)
+- Visualization: emphasize challenge winner
+- Visualization: emphasize overall winner even moar
+- Visualization: indicate failed teams with Skeletor
+- Visualization: fancy animations
+- Jänistiimi
+- Splash screen, click to start
+- Documentation

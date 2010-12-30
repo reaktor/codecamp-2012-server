@@ -1,0 +1,21 @@
+INSTALLATION (partly OS X specific)
+
+$ brew install node npm
+$ npm install underscore vows socket.io websocket-client
+
+Plus, in your .profile:
+
+export NODE_PATH=/usr/local/lib/node/:$NODE_PATH
+
+RUNNING TESTS
+
+./run-tests.sh
+
+RUNNING SERVER
+
+./run-server.sh
+
+Server will read configuration and round configuration from config/config.json and config/round-config.json.
+If you want to use different configuration, you can specify your configuration files on the command line, like here:
+
+./run-server.sh myconfig.json myroundconfig.json

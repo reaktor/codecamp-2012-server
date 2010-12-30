@@ -1,0 +1,22 @@
+{"contenders":[
+    {
+        "host":"localhost",
+        "port":8124,
+        "name":"Embreach"
+    },
+    {
+        "host":"localhost",
+        "port":8125,
+        "name":"Poika"
+    },
+    {
+        "host":"localhost",
+        "port":8126,
+        "name":"Neon 2"
+    },
+    {
+        "host":"localhost",
+        "port":8127,
+        "name":"Eduard Khil"
+    }
+],"server":{"port":9999},"scoring":[10,6,4,3,2,1]}
