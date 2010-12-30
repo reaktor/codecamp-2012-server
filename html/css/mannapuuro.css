@@ -1,5 +1,10 @@
-.template {display: none;}
-body {background: #3B3B3B}
+.template {
+  display: none;
+}
+body {
+  background: #3B3B3B;
+  font-family: Arial;
+}
 .result-table {
   background: #454545;
   border: 0;
