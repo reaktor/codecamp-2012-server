@@ -3,3 +3,16 @@
 .challenge-results.completed {background: pink}
 .fail {background : #000}
 .success {background : green}
+body {background: #3B3B3B}
+.result-table {
+  background: #454545;
+  border: 0;
+  border-spacing: 0;
+  border-bottom: 1px solid #626262;
+  border-right: 1px solid #626262;
+}
+.result-table td, .result-table th {
+  padding: 8px;
+  border-top: 1px solid #626262;
+  border-left: 1px solid #626262;
+}

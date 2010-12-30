@@ -19,12 +19,33 @@ var Handbrake = function(handler) {
         if(queue.length > 0) {
             handler(queue.shift())
         }
-    }, 50)
+    }, 1000)
     return function(message) {
         queue.push(message)
     }
 }
+var Pihtari = function(handler) {
+    var queue = []
+    $(document).click(function () {
+        if(queue.length > 0) {
+            handler(queue.shift())
+        }
+    })
+    return function(message) {
+        queue.push(message)
+    }
+}
+
 var Router = function(handlers) {
+    function wrap(handler) {
+        if (document.location.search == "?pihtari") {
+            return new Pihtari(handler)
+        }
+        if (document.location.search == "?handbrake") {
+            return new Handbrake(handler)
+        }
+        return handler;
+    }
     function onMessage(message) {
         var handler = handlers[message.message];
         if (handler) {
@@ -32,7 +53,7 @@ var Router = function(handlers) {
         }
     }
 
-    new Connector(new Handbrake(onMessage))
+    new Connector(wrap(onMessage))
 };
 
 var ChallengeMapper = function(initMessage) {
