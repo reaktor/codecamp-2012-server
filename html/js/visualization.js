@@ -13,6 +13,17 @@ var Connector = function(messageHandler) {
     });
     socket.connect();
 };
+var Handbrake = function(handler) {
+    var queue = []
+    setInterval(function() {
+        if(queue.length > 0) {
+            handler(queue.shift())
+        }
+    }, 1000)
+    return function(message) {
+        queue.push(message)
+    }
+}
 var Router = function(handlers) {
     function onMessage(message) {
         var handler = handlers[message.message];
@@ -21,7 +32,7 @@ var Router = function(handlers) {
         }
     }
 
-    new Connector(onMessage)
+    new Connector(new Handbrake(onMessage))
 };
 
 var ChallengeMapper = function(initMessage) {
