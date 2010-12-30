@@ -32,33 +32,72 @@ var ChallengeMapper = function(initMessage) {
             }
         }
     }
-    function associate(element, challenge) {
-        element.addClass('challenge-' + challengeId(challenge.name))
+    function associate(element, challengeName) {
+        element.addClass('challenge-' + challengeId(challengeName))
     }
-    return {challengeId : challengeId, associate: associate}
+    function rowFor(challengeName) {
+        return $('.challenge-results.challenge-' + challengeId(challengeName));
+    }
+    return {challengeId : challengeId, associate: associate, rowFor : rowFor}
 }
 var challengeMapper;
 
+var ContenderMapper = function(initMessage) {
+    function contenderId(contenderName) {
+        for (i in initMessage.contenders) {
+            if (initMessage.contenders[i] == contenderName) {
+                return i;
+            }
+        }
+    }
+    function associate(element, contenderName) {
+        element.addClass('contender-' + contenderId(contenderName))
+    }
+    return {
+        contenderId : contenderId, associate: associate
+    }
+}
+var contenderMapper;
+
+var ResultMapper = function(initMessage) {
+    function resultCellFor(challengeName, contenderName) {
+        var challengeRow = challengeMapper.rowFor(challengeName);
+        return $('.contender-result.contender-' + contenderMapper.contenderId(contenderName))
+    }
+    return {resultCellFor : resultCellFor}
+}
+var resultMapper;
+
 function initHandler(initMessage) {
     challengeMapper = new ChallengeMapper(initMessage);
-    Template.renderElements($('#teams'), "team-name", initMessage.contenders, function(teamName, element) {
-        element.text(teamName)
+    contenderMapper = new ContenderMapper(initMessage);
+    resultMapper = new ResultMapper(initMessage);
+    Template.renderElements($('#contenders'), "contenders-name", initMessage.contenders, function(contenderName, element) {
+        element.text(contenderName)
     })
     Template.renderElements($('#results'), "challenge-results", initMessage.challenges, function(challenge, challengeRow) {
         $('.challenge-name', challengeRow).text(challenge.name)
-        challengeMapper.associate(challengeRow, challenge);
-        Template.renderElements(challengeRow, "team-result", initMessage.contenders, function(teamName, contenderResultElement) {})
+        challengeMapper.associate(challengeRow, challenge.name);
+        Template.renderElements(challengeRow, "contender-result", initMessage.contenders, function(contenderName, contenderResultElement) {
+            contenderMapper.associate(contenderResultElement, contenderName)
+        })
     })
 }
 function challengeStartHandler(startMessage) {
     var id = challengeMapper.challengeId(startMessage.challengeName);
-    $('.challenge-results.challenge-' + id).addClass("current");
+    challengeMapper.rowFor(startMessage.challengeName).addClass("current");
     $('.challenge-results:not(.challenge-' + id + ')').removeClass("current");
+}
+
+function contenderFailHandler(failMessage) {
+    var resultCell = resultMapper.resultCellFor(failMessage.challengeName, failMessage.contenderName)
+    resultCell.addClass("fail");
 }
 
 var handlers = {
     init : initHandler,
-    challengeStart : challengeStartHandler
+    challengeStart : challengeStartHandler,
+    contenderFail : contenderFailHandler
 };
 $(function() {
     new Router(handlers)

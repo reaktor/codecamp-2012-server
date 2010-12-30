@@ -1,10 +1,14 @@
 var util = require('util'),
     cont = require('../test/contender'),
-    config = require('./config').config;
+    readJson = require('../src/config').readJson;
+config = readJson('config/config.json')
 
-config.contenders.forEach(function(contenderConfig) {
-    var contender = cont.ContenderWhichReturnsNFirstItemsFromChallenge(1);
+function startContender(contender, contenderConfig) {
     contender.port = contenderConfig.port;
     contender.start();
-});
+}
 
+startContender(cont.ContenderWhichReturnsNFirstItemsFromChallenge(1), config.contenders[0]);
+startContender(cont.ContenderWhichReturnsNFirstItemsFromChallenge(1), config.contenders[1]);
+startContender(cont.ContenderWhichReturnsNFirstItemsFromChallenge(1), config.contenders[2]);
+startContender(cont.ContenderWithEmptyResponse(100), config.contenders[3]);
