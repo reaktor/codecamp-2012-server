@@ -19,7 +19,7 @@ var Handbrake = function(handler) {
         if(queue.length > 0) {
             handler(queue.shift())
         }
-    }, 500)
+    }, 50)
     return function(message) {
         queue.push(message)
     }
@@ -90,7 +90,9 @@ function initHandler(initMessage) {
         element.text(contenderName)
     })
     Template.renderElements($('#results'), "challenge-results", initMessage.challenges, function(challenge, challengeRow) {
-        $('.challenge-name', challengeRow).text(challenge.name)
+        var cell = $('.challenge-name', challengeRow);
+        cell.find(".name").text(challenge.name)
+        cell.find(".ordinal").text("Tehtävä " + (initMessage.challenges.indexOf(challenge) + 1));
         challengeMapper.associate(challengeRow, challenge.name);
         Template.renderElements(challengeRow, "contender-result", initMessage.contenders, function(contenderName, contenderResultElement) {
             contenderMapper.associate(contenderResultElement, contenderName)

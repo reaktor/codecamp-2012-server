@@ -1,6 +1,6 @@
 {"displayName":"Heavy shit","challenges":[
     {
-        "name":"Eka",
+        "name":"Iso reppu, pienet esineet",
         "timeout":50,
         "contents":[
             {
@@ -17,7 +17,7 @@
         "capacity":99
     },
     {
-        "name":"Toka",
+        "name":"Isot kassit",
         "timeout":150,
         "contents":[
             {

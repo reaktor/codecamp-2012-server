@@ -1,5 +1,6 @@
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="stylesheet" href="css/mannapuuro.css"/>
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/jquery-1.4.4.js"></script>
@@ -18,7 +19,10 @@
   </thead>
   <tbody id="results">
   <tr class="challenge-results template">
-    <td class="challenge-name"></td>
+    <td class="challenge-name">
+      <div class="ordinal"></div>
+      <div class="name"></div>
+    </td>
     <td class="contender-result template">
       <div class="result">
         <div class="weight"></div>

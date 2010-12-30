@@ -24,6 +24,7 @@ IN REVIEW
 
 IN PROGRESS
 
+- Visualization: make it pretty
 
 BACKLOG
 
@@ -31,7 +32,6 @@ BACKLOG
 - Visualization: emphasize overall winner even moar
 - Visualization: fancy animations
 - Visualization: Splash screen, click to start
-- Visualization: make it pretty
 - Visualization: show remaining time for challenge
 - Balaillaan Saurin kanssa
 - TODOs
