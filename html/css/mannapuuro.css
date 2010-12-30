@@ -23,7 +23,6 @@ body {
 .challenge-results.not-started td {color: #8f8f8f}
 .challenge-results.current {
   height: 8em;
-  background-color: #1a82f7;
   background: -moz-linear-gradient(100% 100% 90deg, #676767, #454545);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#454545), to(#676767));
 }
@@ -32,10 +31,15 @@ body {
 .current .challenge-name .name { display: block; }
 .challenge-name .ordinal,
 .total-results { font-size: 1.2em; }
+.total-results td {
+  background: -moz-linear-gradient(100% 100% 90deg, #454545, #676767);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#676767), to(#454545));
+}
 
 .challenge-results .contender-result { text-align : center; }
 .challenge-results .contender-result > div { display: none; }
 .challenge-results.completed .contender-result .score { display: block; }
+.challenge-results.completed img.fail { display: none; }
 .challenge-results.current .contender-result .result { display: block; }
 .challenge-results.current .contender-result .result .value-graph { height : 5em }
 .challenge-results.current .contender-result .result .value-bar { background-color: green }

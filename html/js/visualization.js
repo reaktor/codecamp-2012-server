@@ -155,8 +155,7 @@ function challengeStartHandler(startMessage) {
 
 function contenderFailHandler(failMessage) {
     var resultCell = resultMapper.resultCellFor(failMessage.challengeName, failMessage.contenderName)
-    resultCell.addClass("fail");
-    resultCell.append('<img src="images/fail_anim.gif"/>')
+    resultCell.append('<img class="fail" src="images/fail_anim.gif"/>')
 }
 
 function contenderReadyHandler(readyMessage) {
