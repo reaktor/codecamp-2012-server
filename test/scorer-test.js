@@ -31,7 +31,7 @@ var scorerTests = {
 				loser : { value : 0, ok : true },
 				winner : { value : 5, ok : true }
 			};
-			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner : 10});
+			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner : 10, loser: 6});
 		}
 	},
 	'With tie' : {

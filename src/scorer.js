@@ -19,7 +19,7 @@ var Scorer = function(scoring) {
 	// (Contender -> Result) -> (Contender -> int)
     var score = function(challengeResults) {
 	    var coupled = _.map(challengeResults, function(result, id) { return {id : id, ok : result.ok, value : result.value}})
-		var accepted = _.select(coupled, function(result) {return result.ok && result.value > 0})
+		var accepted = _.select(coupled, function(result) {return result.ok})
 		var sorted = _.sortBy(accepted, function(result) {return -result.value })
 		var limited = _.first(sorted, scoring.length);
 		var scores = distributeScores(limited, scoring);

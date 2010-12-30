@@ -131,7 +131,8 @@ var secondChallengeEnd = {
             message : "challengeEnd",
             challengeName : "Toka",
             scores: {
-                "TestContender8201": 10
+                "TestContender8201": 10,
+                "TestContender8200": 6
             }
         })
 };

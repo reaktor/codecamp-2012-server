@@ -17,16 +17,16 @@ DONE
 - Visualization: show rounds
 - Visualization: show team results (team name, value, score, weight)
 - Visualization: indicate failed teams
+- Accept 0 value
+- Visualization: Sums up results of 5 challenges
 
 IN REVIEW
 
 IN PROGRESS
 
-- Visualization: Sums up results of 5 challenges (Maybe in client?)
 
 BACKLOG
 
-- Accept 0 value
 - Visualization: emphasize challenge winner
 - Visualization: emphasize overall winner even moar
 - Visualization: fancy animations
