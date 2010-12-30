@@ -38,7 +38,7 @@ var ChallengeMapper = function(initMessage) {
     function rowFor(challengeName) {
         return $('.challenge-results.challenge-' + challengeId(challengeName));
     }
-    return {challengeId : challengeId, associate: associate, rowFor : rowFor}
+    return {associate: associate, rowFor : rowFor}
 }
 var challengeMapper;
 
@@ -60,9 +60,9 @@ var ContenderMapper = function(initMessage) {
 var contenderMapper;
 
 var ResultMapper = function(initMessage) {
-    function resultCellFor(challengeName, contenderName) {
-        var challengeRow = challengeMapper.rowFor(challengeName);
-        return $('.contender-result.contender-' + contenderMapper.contenderId(contenderName))
+    function resultCellFor(message) {
+        var challengeRow = challengeMapper.rowFor(message.challengeName);
+        return $('.contender-result.contender-' + contenderMapper.contenderId(message.contenderName), challengeRow)
     }
     return {resultCellFor : resultCellFor}
 }
@@ -84,20 +84,29 @@ function initHandler(initMessage) {
     })
 }
 function challengeStartHandler(startMessage) {
-    var id = challengeMapper.challengeId(startMessage.challengeName);
     challengeMapper.rowFor(startMessage.challengeName).addClass("current");
-    $('.challenge-results:not(.challenge-' + id + ')').removeClass("current");
 }
 
 function contenderFailHandler(failMessage) {
-    var resultCell = resultMapper.resultCellFor(failMessage.challengeName, failMessage.contenderName)
+    var resultCell = resultMapper.resultCellFor(failMessage)
     resultCell.addClass("fail");
+}
+
+function contenderReadyHandler(readyMessage) {
+    var resultCell = resultMapper.resultCellFor(readyMessage)
+    resultCell.addClass("success");
+}
+
+function challengeEndHandler(endMessage) {
+    challengeMapper.rowFor(endMessage.challengeName).removeClass("current").addClass("completed");
 }
 
 var handlers = {
     init : initHandler,
     challengeStart : challengeStartHandler,
-    contenderFail : contenderFailHandler
+    contenderFail : contenderFailHandler,
+    contenderReady : contenderReadyHandler,
+    challengeEnd : challengeEndHandler
 };
 $(function() {
     new Router(handlers)
