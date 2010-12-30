@@ -18,6 +18,12 @@
           Template.renderElements($('#teams'), "team-name", initMessage.contenders, function(teamName, element) {
             element.text(teamName)
           })
+          Template.renderElements($('#results'), "challenge-results", initMessage.challenges, function(challenge, challengeRow) {
+            $('.challenge-name', challengeRow).text(challenge.name)
+            Template.renderElements(challengeRow, "team-result", initMessage.contenders, function(teamName, contenderResultElement) {
+
+            })
+          })
         }
       }
       var handler = handlers[message.message];
@@ -28,15 +34,18 @@
 </head>
 <body>
 <h1>Hello Nasty</h1>
-<table id="results">
+<table>
    <thead>
     <tr id="teams">
       <th id="corner"></th>
       <th class="team-name template"></th>
     </tr>
    </thead>
-   <tbody>
-    <tr class="challenge-results"></tr>
+   <tbody id="results">
+     <tr class="challenge-results template">
+       <td class="challenge-name"></td>
+       <td class="team-result template"></td>
+     </tr>
    </tbody>
 </table>
 </body>

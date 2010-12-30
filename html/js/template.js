@@ -17,6 +17,6 @@ if (typeof Template === 'undefined') {
             itemElement.removeClass("template");
             itemTransformer(item, itemElement);
             itemsContainer.append(itemElement);
-        }
+        },
     };
 }
