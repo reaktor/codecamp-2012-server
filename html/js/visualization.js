@@ -19,7 +19,7 @@ var Handbrake = function(handler) {
         if(queue.length > 0) {
             handler(queue.shift())
         }
-    }, 1000)
+    }, 100)
     return function(message) {
         queue.push(message)
     }
@@ -71,9 +71,9 @@ var ContenderMapper = function(initMessage) {
 var contenderMapper;
 
 var ResultMapper = function(initMessage) {
-    function resultCellFor(message) {
-        var challengeRow = challengeMapper.rowFor(message.challengeName);
-        return $('.contender-result.contender-' + contenderMapper.contenderId(message.contenderName), challengeRow)
+    function resultCellFor(challengeName, contenderName) {
+        var challengeRow = challengeMapper.rowFor(challengeName);
+        return $('.contender-result.contender-' + contenderMapper.contenderId(contenderName), challengeRow)
     }
     return {resultCellFor : resultCellFor}
 }
@@ -99,17 +99,23 @@ function challengeStartHandler(startMessage) {
 }
 
 function contenderFailHandler(failMessage) {
-    var resultCell = resultMapper.resultCellFor(failMessage)
+    var resultCell = resultMapper.resultCellFor(failMessage.challengeName, failMessage.contenderName)
     resultCell.addClass("fail");
 }
 
 function contenderReadyHandler(readyMessage) {
-    var resultCell = resultMapper.resultCellFor(readyMessage)
+    var resultCell = resultMapper.resultCellFor(readyMessage.challengeName, readyMessage.contenderName)
     resultCell.addClass("success");
+    resultCell.find(".result .weight").text(readyMessage.weight);
+    resultCell.find(".result .value").text(readyMessage.value);
 }
 
 function challengeEndHandler(endMessage) {
     challengeMapper.rowFor(endMessage.challengeName).removeClass("current").addClass("completed");
+    _.each(endMessage.scores, function(score, contenderName) {
+        var resultCell = resultMapper.resultCellFor(endMessage.challengeName, contenderName)
+        resultCell.children(".score").text(score)
+    })
 }
 
 var handlers = {

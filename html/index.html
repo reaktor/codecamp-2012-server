@@ -5,6 +5,7 @@
   <script src="js/jquery-1.4.4.js"></script>
   <script src="js/template.js"></script>
   <script src="js/visualization.js"></script>
+  <script src="js/underscore.js"></script>
 </head>
 <body>
 <h1>Hello Nasty</h1>
@@ -18,7 +19,14 @@
    <tbody id="results">
      <tr class="challenge-results template">
        <td class="challenge-name"></td>
-       <td class="contender-result template"></td>
+       <td class="contender-result template">
+         <div class="result">
+           <div class="weight"></div>
+           <div class="value"></div>
+         </div>
+         <div class="fail"></div>
+         <div class="score"></div>
+       </td>
      </tr>
    </tbody>
 </table>
