@@ -49,10 +49,10 @@ body {
 .challenge-results.current .contender-result .result .value-bar {
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background: -moz-linear-gradient(100% 100% 90deg, #8cf958, #6bc042);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6bc042), to(#8cf958));
+  background-image:url('../images/green-bar.png');
+  background-repeat:repeat-y;
 }
 .challenge-results.current .contender-result .result .value-bar .value {
   position: relative;
-  top: -1.2em;
+  top: -1.4em;
 }
