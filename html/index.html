@@ -10,20 +10,33 @@
     console.log("Hello Nasty again")
     socket.on('connect', function() {console.log("Connected to server")})
     socket.on('disconnect', function() {console.log("Disconnect from server")})
+    var initMessage;
+    function challengeId(challengeName) {
+      for (i in initMessage.challenges)
+        if (initMessage.challenges[i].name == challengeName)
+          return i;
+    }
     socket.on('message', function(messageString) {
       message = JSON.parse(messageString)
       console.log("Message from server: " + message.message)
       var handlers = {
-        init : function(initMessage) {
+        init : function(message) {
+          initMessage = message;
           Template.renderElements($('#teams'), "team-name", initMessage.contenders, function(teamName, element) {
             element.text(teamName)
           })
           Template.renderElements($('#results'), "challenge-results", initMessage.challenges, function(challenge, challengeRow) {
             $('.challenge-name', challengeRow).text(challenge.name)
+            challengeRow.addClass('challenge-' + challengeId(challenge.name))
             Template.renderElements(challengeRow, "team-result", initMessage.contenders, function(teamName, contenderResultElement) {
 
             })
           })
+        },
+        challengeStart : function(startMessage) {
+          var id = challengeId(startMessage.challengeName);
+          $('.challenge-results.challenge-' + id).addClass("current");
+          $('.challenge-results:not(.challenge-' + id + ')').removeClass("current");
         }
       }
       var handler = handlers[message.message];
