@@ -117,7 +117,7 @@ var ValueVisualizer = function(initMessage) {
         updateGraphs(message.challengeName);
     }
     function updateGraphs(challengeName) {
-        var maxValue = maxValues[challengeName]
+        var maxValue = Math.max(maxValues[challengeName], 1)
         _.each(values[challengeName], function(value, contenderName) {
             var percent = Math.round(100 * value / maxValue)
             var bar = resultMapper.resultCellFor(challengeName, contenderName).find(".value-bar");
