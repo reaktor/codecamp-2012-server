@@ -1,7 +1,7 @@
 {"displayName":"Heavy shit","challenges":[
     {
         "name":"Iso reppu, pienet esineet",
-        "timeout":50,
+        "timeout":10000,
         "contents":[
             {
                 "id":1,
@@ -18,7 +18,7 @@
     },
     {
         "name":"Isot kassit",
-        "timeout":150,
+        "timeout":15000,
         "contents":[
             {
                 "id":11,
@@ -29,6 +29,23 @@
                 "id":21,
                 "weight":1001,
                 "value":2001
+            }
+        ],
+        "capacity":991
+    },
+    {
+        "name":"Hiiret kassit",
+        "timeout":12000,
+        "contents":[
+            {
+                "id":111,
+                "weight":1011,
+                "value":10011
+            },
+            {
+                "id":211,
+                "weight":10011,
+                "value":20011
             }
         ],
         "capacity":991
