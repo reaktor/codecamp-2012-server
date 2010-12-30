@@ -13,24 +13,25 @@ DONE
 - More robust timeout handling (does not allow cheating)
 - Reads configuration from files
 - Serve static content
+- Documentation
 
 IN REVIEW
 
 IN PROGRESS
 
+- Visualization: show rounds
+
 BACKLOG
 
-- Balaillaan Saurin kanssa
-- TODOs
-- Sums up results of 5 challenges (Maybe in client?)
-- Validate configuration (unique contender and challenge names)
-- Generates data based on parameters given in round configuration (number of items, bag size, weight and value distributions)
-- Visualization: show rounds
 - Visualization: show team results (team name, value, score, weight)
 - Visualization: emphasize challenge winner
 - Visualization: emphasize overall winner even moar
 - Visualization: indicate failed teams with Skeletor
 - Visualization: fancy animations
+- Visualization: Splash screen, click to start
+- Balaillaan Saurin kanssa
+- TODOs
+- Sums up results of 5 challenges (Maybe in client?)
+- Validate configuration (unique contender and challenge names)
+- Generates data based on parameters given in round configuration (number of items, bag size, weight and value distributions)
 - Jänistiimi
-- Splash screen, click to start
-- Documentation

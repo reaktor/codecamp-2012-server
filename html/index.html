@@ -1,17 +1,43 @@
 <html>
 <head>
+  <link rel="stylesheet" href="css/mannapuuro.css"/>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="js/jquery-1.4.4.js"></script>
+  <script src="js/template.js"></script>
   <script>
     console.log("Hello Nasty")
     var socket = new io.Socket();
-    socket.connect();
     console.log("Hello Nasty again")
     socket.on('connect', function() {console.log("Connected to server")})
-    socket.on('message', function(message) {console.log("Message from server: " + message)})
     socket.on('disconnect', function() {console.log("Disconnect from server")})
+    socket.on('message', function(messageString) {
+      message = JSON.parse(messageString)
+      console.log("Message from server: " + message.message)
+      var handlers = {
+        init : function(initMessage) {
+          Template.renderElements($('#teams'), "team-name", initMessage.contenders, function(teamName, element) {
+            element.text(teamName)
+          })
+        }
+      }
+      var handler = handlers[message.message];
+      if (handler) handler(message);
+    })
+    socket.connect();
   </script>
 </head>
 <body>
 <h1>Hello Nasty</h1>
+<table id="results">
+   <thead>
+    <tr id="teams">
+      <th id="corner"></th>
+      <th class="team-name template"></th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr class="challenge-results"></tr>
+   </tbody>
+</table>
 </body>
 </html>
