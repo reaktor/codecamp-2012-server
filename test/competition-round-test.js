@@ -99,7 +99,10 @@ var firstChallengeEnd = {
             challengeName : "Eka",
             scores: {
                 // TODO name contenders better in test
-                "TestContender8201": 10
+                "TestContender8201": 10,
+                "TestContender8200": 0,
+                "TestContender8202": 0,
+                "TestContender8203": 0
             }
         })
 };
@@ -132,7 +135,9 @@ var secondChallengeEnd = {
             challengeName : "Toka",
             scores: {
                 "TestContender8201": 10,
-                "TestContender8200": 6
+                "TestContender8200": 6,
+                "TestContender8202": 0,
+                "TestContender8203": 0
             }
         })
 };

@@ -16,15 +16,19 @@ var Scorer = function(scoring) {
 		var wl = winners.length;
 		return scoresForWinners.concat(distributeScores(_.rest(results, wl), _.rest(scoring, wl)))
 	}
+    function pad(cs, padding, toSize) {
+        return cs.concat(_.map(_.range(toSize - cs.length), function(_) { return padding}))
+    }
 	// (Contender -> Result) -> (Contender -> int)
     var score = function(challengeResults) {
 	    var coupled = _.map(challengeResults, function(result, id) { return {id : id, ok : result.ok, value : result.value}})
-		var accepted = _.select(coupled, function(result) {return result.ok})
-		var sorted = _.sortBy(accepted, function(result) {return -result.value })
-		var limited = _.first(sorted, scoring.length);
-		var scores = distributeScores(limited, scoring);
-		var ids = _.pluck(limited, "id")
-		var result = zipAsObject(ids, scores);
+        var sorted = _.sortBy(coupled, function(result) { return (result.ok) ? -result.value : 1 })
+		var accepted = _.select(sorted, function(result) {return result.ok})
+		var limited = _.first(accepted, scoring.length);
+        var scores = distributeScores(limited, scoring);
+        var padded = pad(scores, 0, coupled.length);
+		var ids = _.pluck(sorted, "id")
+		var result = zipAsObject(ids, padded);
 		return result;
 	}
 	return {

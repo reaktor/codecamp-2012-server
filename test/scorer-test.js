@@ -21,7 +21,7 @@ var scorerTests = {
 				fail : { value : 0, ok : false },
 				winner : { value : 5, ok : true }
 			};
-			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner : 10, second : 6, third : 4});
+			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner : 10, second : 6, third : 4, fourth : 0, fail : 0});
 		}
 	},
 	'With less acceptable results than can be scored' : {
@@ -31,7 +31,7 @@ var scorerTests = {
 				loser : { value : 0, ok : true },
 				winner : { value : 5, ok : true }
 			};
-			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner : 10, loser: 6});
+			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner : 10, loser: 6, fail : 0});
 		}
 	},
 	'With tie' : {
@@ -42,7 +42,7 @@ var scorerTests = {
 				winner1 : { value : 5, ok : true },
 				winner2 : { value : 5, ok : true }
 			};
-			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner1 : 10, winner2 : 10, third : 4});
+			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner1 : 10, winner2 : 10, third : 4, loser : 0});
 		}
 	}	
 	
