@@ -14,24 +14,25 @@ DONE
 - Reads configuration from files
 - Serve static content
 - Documentation
+- Visualization: show rounds
+- Visualization: show team results (team name, value, score, weight)
+- Visualization: indicate failed teams
 
 IN REVIEW
 
 IN PROGRESS
 
-- Visualization: show rounds
+- Visualization: Sums up results of 5 challenges (Maybe in client?)
 
 BACKLOG
 
-- Visualization: show team results (team name, value, score, weight)
 - Visualization: emphasize challenge winner
 - Visualization: emphasize overall winner even moar
-- Visualization: indicate failed teams with Skeletor
 - Visualization: fancy animations
 - Visualization: Splash screen, click to start
+- Visualization: make it pretty
 - Balaillaan Saurin kanssa
 - TODOs
-- Sums up results of 5 challenges (Maybe in client?)
 - Validate configuration (unique contender and challenge names)
 - Generates data based on parameters given in round configuration (number of items, bag size, weight and value distributions)
 - Jänistiimi
