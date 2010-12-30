@@ -18,7 +18,7 @@ body {
   border-top: 1px solid #626262;
   border-left: 1px solid #626262;
   font-weight: normal;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 .challenge-results.not-started td {color: #8f8f8f}
 .challenge-results.current {
@@ -30,7 +30,7 @@ body {
 .challenge-name .name { display: none; }
 .current .challenge-name .name { display: block; }
 .challenge-name .ordinal,
-.total-results { font-size: 1.2em; }
+.total-results { font-size: 1.33em; }
 .total-results td {
   background: -moz-linear-gradient(100% 100% 90deg, #454545, #676767);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#676767), to(#454545));
