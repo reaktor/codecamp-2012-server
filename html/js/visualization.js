@@ -103,10 +103,35 @@ var ResultMapper = function(initMessage) {
 }
 var resultMapper;
 
+var ValueVisualizer = function(initMessage) {
+    var values = {}
+    var maxValues = {}
+    function showValue(message) {
+        if (!values[message.challengeName]) {
+            values[message.challengeName] = {}
+        }
+        values[message.challengeName][message.contenderName] = message.value;
+        if (!maxValues[message.challengeName] || message.value > maxValues[message.challengeName]) {
+            maxValues[message.challengeName] = message.value;
+        }
+        updateGraphs(message.challengeName);
+    }
+    function updateGraphs(challengeName) {
+        var maxValue = maxValues[challengeName]
+        _.each(values[challengeName], function(value, contenderName) {
+            var percent = Math.round(100 * value / maxValue)
+            resultMapper.resultCellFor(challengeName, contenderName).find(".value-bar").css('height', percent + "%")
+        })
+    }
+    return {showValue : showValue}
+}
+var valueVisualizer;
+
 function initHandler(initMessage) {
     challengeMapper = new ChallengeMapper(initMessage);
     contenderMapper = new ContenderMapper(initMessage);
     resultMapper = new ResultMapper(initMessage);
+    valueVisualizer = new ValueVisualizer(initMessage);
     Template.renderElements($('#contenders'), "contenders-name", initMessage.contenders, function(contenderName, element) {
         element.text(contenderName)
     })
@@ -137,8 +162,9 @@ function contenderFailHandler(failMessage) {
 function contenderReadyHandler(readyMessage) {
     var resultCell = resultMapper.resultCellFor(readyMessage.challengeName, readyMessage.contenderName)
     resultCell.addClass("success");
-    resultCell.find(".result .weight").text(readyMessage.weight);
+    resultCell.find(".result .weight").text("Paino: " + readyMessage.weight);
     resultCell.find(".result .value").text(readyMessage.value);
+    valueVisualizer.showValue(readyMessage)
 }
 
 function challengeEndHandler(endMessage) {
