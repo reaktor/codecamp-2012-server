@@ -32,6 +32,7 @@ BACKLOG
 - Visualization: fancy animations
 - Visualization: Splash screen, click to start
 - Visualization: make it pretty
+- Visualization: show remaining time for challenge
 - Balaillaan Saurin kanssa
 - TODOs
 - Validate configuration (unique contender and challenge names)
