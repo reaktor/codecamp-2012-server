@@ -19,7 +19,7 @@ var Handbrake = function(handler) {
         if(queue.length > 0) {
             handler(queue.shift())
         }
-    }, 1000)
+    }, 2000)
     return function(message) {
         queue.push(message)
     }
@@ -115,6 +115,7 @@ function initHandler(initMessage) {
         cell.find(".name").text(challenge.name)
         cell.find(".ordinal").text("Tehtävä " + (initMessage.challenges.indexOf(challenge) + 1));
         challengeMapper.associate(challengeRow, challenge.name);
+        challengeRow.addClass("not-started")
         Template.renderElements(challengeRow, "contender-result", initMessage.contenders, function(contenderName, contenderResultElement) {
             contenderMapper.associate(contenderResultElement, contenderName)
         })
@@ -124,12 +125,13 @@ function initHandler(initMessage) {
     })
 }
 function challengeStartHandler(startMessage) {
-    challengeMapper.rowFor(startMessage.challengeName).addClass("current");
+    challengeMapper.rowFor(startMessage.challengeName).removeClass("not-started").addClass("current");
 }
 
 function contenderFailHandler(failMessage) {
     var resultCell = resultMapper.resultCellFor(failMessage.challengeName, failMessage.contenderName)
     resultCell.addClass("fail");
+    resultCell.find(".fail").html('<img src="images/fail_anim.gif"/>')
 }
 
 function contenderReadyHandler(readyMessage) {
