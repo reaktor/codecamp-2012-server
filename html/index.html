@@ -4,46 +4,7 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/jquery-1.4.4.js"></script>
   <script src="js/template.js"></script>
-  <script>
-    console.log("Hello Nasty")
-    var socket = new io.Socket();
-    console.log("Hello Nasty again")
-    socket.on('connect', function() {console.log("Connected to server")})
-    socket.on('disconnect', function() {console.log("Disconnect from server")})
-    var initMessage;
-    function challengeId(challengeName) {
-      for (i in initMessage.challenges)
-        if (initMessage.challenges[i].name == challengeName)
-          return i;
-    }
-    socket.on('message', function(messageString) {
-      message = JSON.parse(messageString)
-      console.log("Message from server: " + message.message)
-      var handlers = {
-        init : function(message) {
-          initMessage = message;
-          Template.renderElements($('#teams'), "team-name", initMessage.contenders, function(teamName, element) {
-            element.text(teamName)
-          })
-          Template.renderElements($('#results'), "challenge-results", initMessage.challenges, function(challenge, challengeRow) {
-            $('.challenge-name', challengeRow).text(challenge.name)
-            challengeRow.addClass('challenge-' + challengeId(challenge.name))
-            Template.renderElements(challengeRow, "team-result", initMessage.contenders, function(teamName, contenderResultElement) {
-
-            })
-          })
-        },
-        challengeStart : function(startMessage) {
-          var id = challengeId(startMessage.challengeName);
-          $('.challenge-results.challenge-' + id).addClass("current");
-          $('.challenge-results:not(.challenge-' + id + ')').removeClass("current");
-        }
-      }
-      var handler = handlers[message.message];
-      if (handler) handler(message);
-    })
-    socket.connect();
-  </script>
+  <script src="js/visualization.js"></script>
 </head>
 <body>
 <h1>Hello Nasty</h1>
