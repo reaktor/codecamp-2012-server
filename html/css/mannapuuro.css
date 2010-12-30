@@ -17,6 +17,8 @@ body {
   padding: 8px;
   border-top: 1px solid #626262;
   border-left: 1px solid #626262;
+  font-weight: normal;
+  font-size: 1em;
 }
 .challenge-results.not-started td {color: #8f8f8f}
 .challenge-results.current {
@@ -25,6 +27,13 @@ body {
   background: -moz-linear-gradient(100% 100% 90deg, #676767, #454545);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#454545), to(#676767));
 }
+
+.challenge-name .name { display: none; }
+.current .challenge-name .name { display: block; }
+.challenge-name .ordinal,
+.total-results { font-size: 1.2em; }
+
+.challenge-results .contender-result { text-align : center; }
 .challenge-results .contender-result > div { display: none; }
 .challenge-results.completed .contender-result .score { display: block; }
 .challenge-results.current .contender-result .result { display: block; }
