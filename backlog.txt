@@ -31,15 +31,17 @@ IN PROGRESS
 
 BACKLOG
 
+- Validate solutions (duplicate ids etc, see todos)
+- Show values also for completed challenges
+- Jänistiimi
+- TODOs
+- Sounds
+- Visualization: show remaining time for challenge
 - Visualization: vertical centering
 - Visualization: Reaktor logo in right bottom corner
 - Visualization: fine-tune cell borders
 - Visualization: make current round pop out
 - Visualization: contender header as in tif
 - Visualization: fancy animations
-- Visualization: show remaining time for challenge
-- Balaillaan Saurin kanssa
-- TODOs
 - Validate configuration (unique contender and challenge names)
 - Generates data based on parameters given in round configuration (number of items, bag size, weight and value distributions)
-- Jänistiimi
