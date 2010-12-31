@@ -173,11 +173,7 @@ function initHandler(initMessage) {
 }
 
 function roundStartHandler(startMessage) {
-    $('body').attr("id", "countdown")
-    $('body').append('<img id="countdown-image" class="fullscreen-image" src="images/countdown_anim.gif"/>')
-    setTimeout(function() {
-        $('body').attr("id", "competition")
-    }, 5000)
+    $('body').attr("id", "competition")
 }
 
 function challengeStartHandler(startMessage) {
@@ -230,7 +226,11 @@ $(function() {
     var connector = new Connector()
     var router = new Router(connector, handlers)
     $('#splash-image').click(function() {
-        connector.send("start")
+        $('body').attr("id", "countdown")
+        $('body').append('<img id="countdown-image" class="fullscreen-image" src="images/countdown_anim.gif"/>')
+        setTimeout(function() {
+            connector.send("start")
+        }, 5000)
     });
 })
 
