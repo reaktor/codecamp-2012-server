@@ -5,53 +5,11 @@ var http = require('http'),
 		Scorer = require('./scorer').Scorer,
         Ranker = require('./ranker').Ranker,
         BookKeeper = require('./bookkeeper').BookKeeper,
+        Challenge = require('./challenge').Challenge,
+        Result = require('./result').Result,
+        VisualizationServer = require('./visualizationserver').VisualizationServer,
         url = require('url'),
-        path = require("path"),
-        io = require('socket.io');
-// (Boolean, Int) -> Result
-var Result = function(ok, value, weight) {
-    return { ok: ok, value: value, weight: weight }
-}
-// { contents: [Item], capacity: Int } -> Challenge
-var Challenge = function(challenge) {
-    // Int -> Item
-    var itemById = function(id) {
-        return _.detect(challenge.contents, function(item) {
-            return item.id == id;
-        });
-    }
-    // [Item] -> (Item -> Int) -> Int
-    var sum = function(items, f) {
-        return _.reduce(items, function(acc, item) {
-            return acc + f(item)
-        }, 0);
-    }
-    // [ItemId] -> Result
-    var determineResult = function(itemIds) {
-        if (!_.isArray(itemIds)) {
-            return new Result(false, 0, 0)
-        }
-        var chosenItems = itemIds.map(itemById);
-        var weight = sum(chosenItems, function(i) {
-            return i.weight
-        });
-        if (weight > challenge.capacity) {
-            return new Result(false, 0, weight)
-        } else {
-            var value = sum(chosenItems, function(i) {
-                return i.value
-            });
-            return new Result(true, value, weight)
-        }
-    }
-    return {
-        name: challenge.name,
-        timeout: challenge.timeout,
-        resultFor: determineResult,
-        toString: function() { return challenge.name },
-        toJSON : function() {return JSON.stringify(challenge)}
-    }
-}
+        path = require("path");
 
 var Contender = function(contender) {
     return {
@@ -118,39 +76,6 @@ var StaticContentServer = function() {
     return {requestHandler : handler}    
 }
 
-var VisualizationServer = function(httpServer, startFunction) {
-    var messages = [];
-
-    // (JSON -> Unit) -> Unit
-    var sendInitMessages = function(client) {
-        console.log("Visualization client connected.");
-        messages.forEach(function(message) {
-            client.send(JSON.stringify((message)))
-            console.log("Sent: " + message.message);
-        })
-    }
-
-    var socket = io.listen(httpServer);
-    socket.on('connection', function(client) {
-        client.on('message', function(message) {
-            console.log("Received: " + inspect(message));
-            if (message == "start") {
-                startFunction()
-            }
-        })
-        client.on('disconnect', function() {console.log("Client disconnected")})
-        sendInitMessages(client)
-    });
-
-    var broadcast = function(message) {
-        messages.push(message);
-        socket.broadcast(JSON.stringify(message));
-    }
-
-    return {
-        sendEvent : broadcast
-    };
-}
 
 
 

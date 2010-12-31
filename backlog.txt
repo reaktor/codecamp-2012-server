@@ -22,16 +22,16 @@ DONE
 - Visualization: Splash screen, countdown
 - Visualization: emphasize overall winner (gold, silver, bronze)
 - Visualization: make it pretty
+- Visualization: Click to start
 
 IN REVIEW
 
 IN PROGRESS
 
-- Visualization: Click to start
+- Validate solutions (duplicate ids etc, see todos)
 
 BACKLOG
 
-- Validate solutions (duplicate ids etc, see todos)
 - Show values also for completed challenges
 - Jänistiimi
 - TODOs
