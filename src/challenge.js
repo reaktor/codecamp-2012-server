@@ -1,5 +1,6 @@
 var _ = require('underscore'),
-    Result = require('./result').Result
+    FailedResult = require('./result').FailedResult,
+    AcceptedResult = require('./result').AcceptedResult
 
 // { contents: [Item], capacity: Int } -> Challenge
 exports.Challenge = function(challenge) {
@@ -17,18 +18,18 @@ exports.Challenge = function(challenge) {
     }
     // [ItemId] -> Result
     var determineResult = function(itemIds) {
-        if (!_.isArray(itemIds))  return new Result(false, 0, 0)
-        if (!_.isEqual(_.uniq(itemIds), itemIds)) return new Result(false, 0, 0)
+        if (!_.isArray(itemIds))  return new FailedResult()
+        if (!_.isEqual(_.uniq(itemIds), itemIds)) return new FailedResult()
         var chosenItems = itemIds.map(itemById);
-        if (chosenItems.length != _.compact(chosenItems).length) return new Result(false, 0, 0)
+        if (chosenItems.length != _.compact(chosenItems).length) return new FailedResult()
         var weight = sum(chosenItems, function(i) { return i.weight });
         if (weight > challenge.capacity) {
-            return new Result(false, 0, 0)
+            return new FailedResult()
         } else {
             var value = sum(chosenItems, function(i) {
                 return i.value
             });
-            return new Result(true, value, weight)
+            return new AcceptedResult(value, weight)
         }
     }
     return {

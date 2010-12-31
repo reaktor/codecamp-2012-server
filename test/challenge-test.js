@@ -2,7 +2,8 @@ var vows = require('vows'),
     assert = require('assert'),
     util = require('util'),
     Challenge = require('../src/challenge').Challenge,
-    Result = require('../src/result').Result;
+    FailedResult = require('../src/result').FailedResult,
+    AcceptedResult = require('../src/result').AcceptedResult
 
 var challenge = Challenge({
     "name": "Eka",
@@ -17,19 +18,19 @@ var challenge = Challenge({
 var resultValidation = {
     'When validating result' : {
         'Accepts correct answer' : function() {
-            assert.deepEqual(challenge.resultFor(["1"]), new Result(true, 100, 10));
+            assert.deepEqual(challenge.resultFor(["1"]), new AcceptedResult(100, 10));
         },
         'Fails overweight result' : function() {
-            assert.deepEqual(challenge.resultFor(["1", "2"]), new Result(false, 0, 0));
+            assert.deepEqual(challenge.resultFor(["1", "2"]), new FailedResult());
         },
         'Fails LOL result' : function() {
-            assert.deepEqual(challenge.resultFor("LOL"), new Result(false, 0, 0));
+            assert.deepEqual(challenge.resultFor("LOL"), new FailedResult());
         },
         'Fails result containing duplicates' : function () {
-            assert.deepEqual(challenge.resultFor(["1", "1"]), new Result(false, 0, 0));
+            assert.deepEqual(challenge.resultFor(["1", "1"]), new FailedResult());
         },
         'Fails result containing unknown items' : function () {
-            assert.deepEqual(challenge.resultFor(["1", "3"]), new Result(false, 0, 0));
+            assert.deepEqual(challenge.resultFor(["1", "3"]), new FailedResult());
         }
     }
 }

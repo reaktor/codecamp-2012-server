@@ -1,6 +1,6 @@
 var Contender = require('./contender').Contender,
     http = require('http'),
-    Result = require('./result').Result;
+    FailedResult = require('./result').FailedResult;
 
 // type ContenderCompletionListener : Challenge -> Contender -> Result -> Unit
 // type Messagehandler : (Object -> Unit)
@@ -11,7 +11,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
     // Contender -> Unit
     function failContender(contender) {
         messageHandler({message : "contenderFail", challengeName : challenge.name, contenderName : contender.name})
-        contenderCompletionListener(challenge, contender, new Result(false, 0, 0));
+        contenderCompletionListener(challenge, contender, new FailedResult());
     }
     // TODO this function is awfully long
     var sendChallengeAndSaveResult = function(contender) {
