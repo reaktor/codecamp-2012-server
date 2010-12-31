@@ -21,16 +21,19 @@ DONE
 - Visualization: Sums up results of 5 challenges
 - Visualization: Splash screen, countdown
 - Visualization: emphasize overall winner (gold, silver, bronze)
+- Visualization: make it pretty
 
 IN REVIEW
 
 IN PROGRESS
 
-- Visualization: make it pretty
 
 BACKLOG
 
-- Visualization: emphasize challenge winner
+- Visualization: Reaktor logo in right bottom corner
+- Visualization: fine-tune cell borders
+- Visualization: make current round pop out
+- Visualization: contender header as in tif
 - Visualization: fancy animations
 - Visualization: Click to start
 - Visualization: show remaining time for challenge
