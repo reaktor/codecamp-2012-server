@@ -3,6 +3,7 @@ var http = require('http'),
         _ = require('underscore'),
         util = require('util'),
 		Scorer = require('./scorer').Scorer,
+        Ranker = require('./ranker').Ranker,
         url = require('url'),
         path = require("path"),
         io = require('socket.io');
@@ -64,7 +65,7 @@ var Main = function(config, round) {
     var staticContentServer = new StaticContentServer();
     var httpServer = new HttpServer(config.server.port, staticContentServer.requestHandler)
     var visualizationServer = new VisualizationServer(httpServer)
-    RoundRunner(config, round, visualizationServer.sendEvent);
+    RoundRunner(config, round, visualizationServer.sendEvent, new BookKeeper());
     return {
         close : function() { httpServer.close() },
         registerMessageHandler : visualizationServer.registerMessageHandler
@@ -137,7 +138,27 @@ var VisualizationServer = function(httpServer) {
     };
 }
 
-var RoundRunner = function(config, round, messageHandler) {
+var BookKeeper = function() {
+    var cumulativeScores
+    // Challenge -> (contenderName -> Int) -> Unit
+    function record(challenge, scores) {
+        if (!cumulativeScores) {
+            cumulativeScores = _.clone(scores);
+        } else {
+            _.each(scores, function(score, contenderName) { cumulativeScores[contenderName] += score})
+        }
+    }
+    // Unit -> (contenderName -> Int)
+    function getCumulativeScores() {
+        return cumulativeScores
+    }
+    function getRanking() {
+        return new Ranker().rank(cumulativeScores)
+    }
+    return {record : record, getCumulativeScores : getCumulativeScores, getRanking : getRanking}
+}
+
+var RoundRunner = function(config, round, messageHandler, bookKeeper) {
     messageHandler({
         message: "init",
         contenders : _.pluck(config.contenders, "name"),
@@ -149,7 +170,7 @@ var RoundRunner = function(config, round, messageHandler) {
 
     var sendChallenges = function(remainingChallenges) {
         if(remainingChallenges.length == 0) {
-            messageHandler({message: "roundEnd"})
+            messageHandler({message: "roundEnd", ranking : bookKeeper.getRanking()})
             return;
         }
         var remainingContenders = config.contenders.length;
@@ -159,7 +180,8 @@ var RoundRunner = function(config, round, messageHandler) {
             remainingContenders--;
             if(remainingContenders == 0) {
                 var scores = Scorer(config.scoring).score(challengeResults)
-                messageHandler({message : "challengeEnd", challengeName : challenge.name, scores : scores});
+                bookKeeper.record(challenge, scores);
+                messageHandler({message : "challengeEnd", challengeName : challenge.name, scores : scores, cumulativeScores : bookKeeper.getCumulativeScores()});
                 sendChallenges(_.tail(remainingChallenges));
             }
         }

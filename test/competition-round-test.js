@@ -103,6 +103,12 @@ var firstChallengeEnd = {
                 "TestContender8200": 0,
                 "TestContender8202": 0,
                 "TestContender8203": 0
+            },
+            cumulativeScores: {
+                "TestContender8201": 10,
+                "TestContender8200": 0,
+                "TestContender8202": 0,
+                "TestContender8203": 0
             }
         })
 };
@@ -138,12 +144,24 @@ var secondChallengeEnd = {
                 "TestContender8200": 6,
                 "TestContender8202": 0,
                 "TestContender8203": 0
+            },
+            cumulativeScores: {
+                "TestContender8201": 20,
+                "TestContender8200": 6,
+                "TestContender8202": 0,
+                "TestContender8203": 0
             }
         })
 };
 
 var roundEnd = {
-    "When round ends" : expectMessage("roundEnd message is sent", {message : "roundEnd"})
+    "When round ends" : expectMessage("roundEnd message is sent", {
+        message : "roundEnd",
+        ranking : {"TestContender8201": 1,
+                   "TestContender8200": 2,
+                   "TestContender8202": 3,
+                   "TestContender8203": 3}
+    })
 };
 
 var challengesSentToContenders = {
