@@ -170,6 +170,7 @@ function initHandler(initMessage) {
 
 function roundStartHandler(startMessage) {
     $('.result-table').removeClass('hidden');
+    $('#splash-image').hide();
 }
 
 function challengeStartHandler(startMessage) {

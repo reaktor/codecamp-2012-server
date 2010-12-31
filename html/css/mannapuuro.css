@@ -5,7 +5,12 @@ body {
   background: #3B3B3B;
   font-family: Arial;
 }
+#splash-image {
+  margin: auto;
+  display: block;
+}
 .result-table {
+  margin: auto;
   background: #454545;
   border: 0;
   border-spacing: 0;
