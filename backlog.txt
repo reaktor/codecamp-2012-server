@@ -23,12 +23,11 @@ DONE
 - Visualization: emphasize overall winner (gold, silver, bronze)
 - Visualization: make it pretty
 - Visualization: Click to start
+- Validate solutions (duplicate ids etc, see todos)
 
 IN REVIEW
 
 IN PROGRESS
-
-- Validate solutions (duplicate ids etc, see todos)
 
 BACKLOG
 

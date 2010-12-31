@@ -87,8 +87,6 @@ var firstChallengeResults = {
         }
 
         // Handle these (and other) special cases in another context:
-        // TODO client returning ids not found in challenge
-        // TODO client returning duplicate ids
         // TODO client returning empty string
     }
 };
