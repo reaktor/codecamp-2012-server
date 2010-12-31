@@ -1,14 +1,14 @@
 /**
  * Message queue for the integration tests.
  */
-var WebSocket = require('websocket-client').WebSocket,
+var WebSocketClient = require('./websocket-client').WebSocketClient,
     assert = require('assert'),
     util = require('util'),
     _ = require('underscore');
 
 // int -> (JSONObject -> Unit) -> WebSocketMessageCollector
 var WebSocketMessageCollector = function(port, handler) {
-    var ws = new WebSocket('ws://localhost:' + port + '/socket.io/websocket');
+    var ws = WebSocketClient(port);
     ws.onmessage = function(message) {
         /*
          * The messages are prefixed with a header that contains the size of the actual payload, e.g.

@@ -9,7 +9,8 @@ var vows = require('vows'),
     assertContains = require('./assertions').assertContains,
     TestMessageQueue = require('./message-queue').TestMessageQueue,
     MessageBatcher = require('./message-queue').MessageBatcher,
-    TestServer = require('./test-server').TestServer;
+    TestServer = require('./test-server').TestServer,
+    sendMessage = require('./websocket-client').sendMessage;
 
 var nonResponsive = contender.ContenderWithEmptyResponse(100).start();
 var responsiveWithResultWithinBounds = contender.ContenderWhichReturnsNFirstItemsFromChallenge(1).start();
