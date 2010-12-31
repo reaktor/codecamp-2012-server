@@ -1,4 +1,5 @@
-var io = require('socket.io')
+var io = require('socket.io'),
+    inspect = require('util').inspect
 
 exports.VisualizationServer = function(httpServer, startFunction) {
     var messages = [];
