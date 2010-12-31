@@ -31,11 +31,15 @@ body {
 .challenge-name .name { display: none; }
 .current .challenge-name .name { display: block; }
 .challenge-name .ordinal,
-.total-results { font-size: 1.33em; }
-.total-results td {
+.total-results {
+  font-size: 1.33em;
   background: -moz-linear-gradient(100% 100% 90deg, #454545, #676767);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#676767), to(#454545));
 }
+.total-results .contender-total {text-align : center;}
+.total-results .rank-1 { background-image : url("../images/gold.png"); background-repeat : no-repeat;}
+.total-results .rank-2 { background-image : url("../images/silver.png"); background-repeat : no-repeat;}
+.total-results .rank-3 { background-image : url("../images/bronze.png"); background-repeat : no-repeat;}
 
 .challenge-results .contender-result { text-align : center; }
 .challenge-results .contender-result > div { display: none; }

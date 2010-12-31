@@ -11,4 +11,4 @@ function startContender(contender, contenderConfig) {
 startContender(cont.ContenderWhichReturnsNFirstItemsFromChallenge(1), config.contenders[0]);
 startContender(cont.RandomContender(), config.contenders[1]);
 startContender(cont.RandomContender(), config.contenders[2]);
-startContender(cont.ContenderWithEmptyResponse(13000), config.contenders[3]);
+startContender(cont.ContenderWithEmptyResponse(5000), config.contenders[3]);
