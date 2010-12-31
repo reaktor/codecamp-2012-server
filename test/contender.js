@@ -39,6 +39,10 @@ function Contender(resultStrategy) {
     this.id = function() {
         return this.config().name;
     }
+    this.setDelay = function(delay) {
+        this.timeout = delay;
+        return this;
+    }
 }
 // Int -> Contender
 function ContenderWhichReturnsNFirstItemsFromChallenge(numberOfItemsToKeep) {
