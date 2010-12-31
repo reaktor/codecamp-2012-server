@@ -4,6 +4,7 @@
 body {
   background: #3B3B3B;
   font-family: Arial;
+  margin-top: 100px;
 }
 .fullscreen-image {
   margin: auto;
