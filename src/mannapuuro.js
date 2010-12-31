@@ -5,10 +5,7 @@ var VisualizationServer = require('./visualizationserver').VisualizationServer,
     HttpServer = require('./httpserver').HttpServer;
 
 var Main = function(config, round) {
-    var staticContentServer = new StaticContentServer();
-    var httpServer = new HttpServer(config.server.port, staticContentServer.requestHandler)
     var started
-
     function start() {
         if (!started) {
             started = true;
@@ -16,6 +13,8 @@ var Main = function(config, round) {
         }
     }
 
+    var staticContentServer = new StaticContentServer();
+    var httpServer = new HttpServer(config.server.port, staticContentServer.requestHandler)
     var visualizationServer = new VisualizationServer(httpServer, start)
     return {
         start : start,
