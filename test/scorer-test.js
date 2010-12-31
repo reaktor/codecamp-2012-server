@@ -44,7 +44,7 @@ var scorerTests = {
 			};
 			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner1 : 10, winner2 : 10, third : 4, loser : 0});
 		}
-	}	
-	
+	}
+
 }
-vows.describe('Mannapuuro').addBatch(scorerTests).export(module);
+vows.describe('When scoring').addBatch(scorerTests).export(module);
