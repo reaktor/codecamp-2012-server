@@ -1,5 +1,6 @@
-var Connector = function(messageHandler) {
+var Connector = function() {
     var socket = new io.Socket();
+    var handlers = []
     socket.on('connect', function() {
         console.log("Connected to server")
     })
@@ -9,9 +10,13 @@ var Connector = function(messageHandler) {
     socket.on('message', function(messageString) {
         var message = JSON.parse(messageString);
         console.log("Message from server: " + message.message)
-        messageHandler(message)
+        handlers.forEach(function(handler) {handler(message)})
     });
     socket.connect();
+    return {
+        addHandler : function(handler) {handlers.push(handler)},
+        send : function(message) {socket.send(message)}
+    }
 };
 var Handbrake = function(handler) {
     var queue = []
@@ -51,7 +56,7 @@ var Default = function(handler) {
     }
 }
 
-var Router = function(handlers) {
+var Router = function(connector, handlers) {
     function wrap(handler) {
         if (document.location.search == "?pihtari") {
             return new Pihtari(handler)
@@ -67,8 +72,7 @@ var Router = function(handlers) {
             handler(message);
         }
     }
-
-    new Connector(wrap(onMessage))
+    connector.addHandler(wrap(onMessage))
 };
 
 var ChallengeMapper = function(initMessage) {
@@ -223,6 +227,10 @@ var handlers = {
     roundEnd : roundEndHandler
 };
 $(function() {
-    new Router(handlers)
+    var connector = new Connector()
+    var router = new Router(connector, handlers)
+    $('#splash-image').click(function() {
+        connector.send("start")
+    });
 })
 

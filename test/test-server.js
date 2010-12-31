@@ -20,6 +20,7 @@ var TestServer = function(optionalContenders) {
     var contenders = optionalContenders || []
     var config = createConfigFor(contenders);
     var main = new Main(config, round);
+    main.start()
 
     function tearDownBatch() {
         return {

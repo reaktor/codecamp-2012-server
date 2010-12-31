@@ -27,15 +27,16 @@ IN REVIEW
 
 IN PROGRESS
 
+- Visualization: Click to start
 
 BACKLOG
 
+- Visualization: vertical centering
 - Visualization: Reaktor logo in right bottom corner
 - Visualization: fine-tune cell borders
 - Visualization: make current round pop out
 - Visualization: contender header as in tif
 - Visualization: fancy animations
-- Visualization: Click to start
 - Visualization: show remaining time for challenge
 - Balaillaan Saurin kanssa
 - TODOs

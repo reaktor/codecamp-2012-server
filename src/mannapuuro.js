@@ -1,7 +1,7 @@
 var http = require('http'),
         fs = require('fs'),
         _ = require('underscore'),
-        util = require('util'),
+        inspect = require('util').inspect,
 		Scorer = require('./scorer').Scorer,
         Ranker = require('./ranker').Ranker,
         BookKeeper = require('./bookkeeper').BookKeeper,
@@ -65,9 +65,16 @@ var Contender = function(contender) {
 var Main = function(config, round) {
     var staticContentServer = new StaticContentServer();
     var httpServer = new HttpServer(config.server.port, staticContentServer.requestHandler)
-    var visualizationServer = new VisualizationServer(httpServer)
-    RoundRunner(config, round, visualizationServer.sendEvent, new BookKeeper());
+    var started
+    function start() {
+        if (!started) {
+            started = true;
+            RoundRunner(config, round, visualizationServer.sendEvent, new BookKeeper());
+        }
+    }
+    var visualizationServer = new VisualizationServer(httpServer, start)
     return {
+        start : start,
         close : function() { httpServer.close() },
         registerMessageHandler : visualizationServer.registerMessageHandler
     };
@@ -111,7 +118,7 @@ var StaticContentServer = function() {
     return {requestHandler : handler}    
 }
 
-var VisualizationServer = function(httpServer) {
+var VisualizationServer = function(httpServer, startFunction) {
     var messages = [];
 
     // (JSON -> Unit) -> Unit
@@ -119,12 +126,18 @@ var VisualizationServer = function(httpServer) {
         console.log("Visualization client connected.");
         messages.forEach(function(message) {
             client.send(JSON.stringify((message)))
+            console.log("Sent: " + message.message);
         })
     }
 
     var socket = io.listen(httpServer);
     socket.on('connection', function(client) {
-        client.on('message', function() {console.log("Lol@client message");})
+        client.on('message', function(message) {
+            console.log("Received: " + inspect(message));
+            if (message == "start") {
+                startFunction()
+            }
+        })
         client.on('disconnect', function() {console.log("Client disconnected")})
         sendInitMessages(client)
     });
