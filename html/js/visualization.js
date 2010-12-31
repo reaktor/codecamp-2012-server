@@ -175,18 +175,11 @@ function challengeEndHandler(endMessage) {
     _.each(endMessage.scores, function(score, contenderName) {
         var resultCell = resultMapper.resultCellFor(endMessage.challengeName, contenderName)
         resultCell.children(".score").text(score)
-        incrementTotal(contenderName, score)
     })
-    function toInt(text) {
-        if (!text.trim()) {
-            return 0;
-        }
-        return parseInt(text);
-    }
-    function incrementTotal(contenderName, score) {
+    _.each(endMessage.cumulativeScores, function(score, contenderName) {
         var cell = contenderMapper.totalScoreCellFor(contenderName);
-        cell.text(score + toInt(cell.text()));
-    }
+        cell.text(score)
+    })
 }
 
 var handlers = {

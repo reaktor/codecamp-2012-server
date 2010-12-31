@@ -6,9 +6,6 @@ var Ranker = function() {
     var rank = function(scores) {
         var scoresWithOkFlag = {}
         _.each(scores, function(score, contenderName) { scoresWithOkFlag[contenderName] = {value : score, ok : true}})
-
-
-        console.log("scores=" + inspect(scoresWithOkFlag))
         return Scorer(_.range(1, _.size(scores) + 1)).score(scoresWithOkFlag);
     }
     return {rank : rank}

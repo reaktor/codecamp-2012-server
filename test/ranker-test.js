@@ -1,5 +1,5 @@
 /**
- * Test for the scorer.
+ * Test for the ranker.
  */
 var vows = require('vows'),
         assert = require('assert'),
