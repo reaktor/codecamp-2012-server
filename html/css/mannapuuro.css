@@ -62,7 +62,7 @@ body {
 
 .challenge-results .contender-result { text-align : center; }
 .challenge-results .contender-result > div { display: none; }
-.challenge-results.completed .contender-result .score { display: block; }
+.challenge-results.completed .contender-result .score { display: block; font-size: 1.33em; }
 .challenge-results.completed img.fail { display: none; }
 .challenge-results.current .contender-result .result { display: block; }
 .fail .value-graph { display : none; }
