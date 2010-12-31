@@ -1,7 +1,7 @@
 {"displayName":"Heavy shit","challenges":[
     {
         "name":"Iso reppu, pienet esineet",
-        "timeout":10000,
+        "timeout":3000,
         "contents":[
             {"id":1, "weight":10,"value":40},
             {"id":2, "weight":40,"value":100},
