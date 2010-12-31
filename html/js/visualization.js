@@ -182,12 +182,20 @@ function challengeEndHandler(endMessage) {
     })
 }
 
+function roundEndHandler(roundEndMessage) {
+    _.each(roundEndMessage.ranking, function(rank, contenderName) {
+        var cell = contenderMapper.totalScoreCellFor(contenderName);
+        cell.addClass("rank-" + rank)
+    })
+}
+
 var handlers = {
     init : initHandler,
     challengeStart : challengeStartHandler,
     contenderFail : contenderFailHandler,
     contenderReady : contenderReadyHandler,
-    challengeEnd : challengeEndHandler
+    challengeEnd : challengeEndHandler,
+    roundEnd : roundEndHandler
 };
 $(function() {
     new Router(handlers)
