@@ -1,6 +1,7 @@
 var Contender = require('./contender').Contender,
     http = require('http'),
-    FailedResult = require('./result').FailedResult;
+    FailedResult = require('./result').FailedResult,
+    extractContent = require('./contentextractor').extractContent;
 
 // type ContenderCompletionListener : Challenge -> Contender -> Result -> Unit
 // type Messagehandler : (Object -> Unit)
@@ -18,25 +19,25 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
         function log(text) {
             console.log("Challenge " + challenge + ", Contender " + contender + ": " + text);
         }
-        var started = new Date();
-        log("Sending challenge");
-        var httpClient = http.createClient(contender.port, contender.host);
-        var request = httpClient.request('POST', '/', {'host': contender.host});
-        request.write(challenge.toJSON());
-        request.connection.setTimeout(challenge.timeout);
-        var timedOut = false;
-        request.connection.on('timeout', function() {
-            log("Timeout")
-            timedOut = true
-            failContender(contender);
-        });
-        request.on('response', function (response) {
-            var solutionJson = '';
-            response.setEncoding('utf8');
-            response.on('data', function (chunk) {
-                solutionJson += chunk;
+        function sendChallenge() {
+            log("Sending challenge");
+            var httpClient = http.createClient(contender.port, contender.host);
+            var request = httpClient.request('POST', '/', {'host': contender.host});
+            request.write(challenge.toJSON());
+            request.connection.setTimeout(challenge.timeout);
+            request.connection.on('timeout', function() {
+                log("Timeout")
+                timedOut = true
+                failContender(contender);
             });
-            response.on('end', function() {
+            return request;
+        }
+        var started = new Date();
+        var request = sendChallenge();
+        var timedOut = false;
+        request.on('response', function (response) {
+            response.setEncoding('utf8');
+            extractContent(response, function(solutionJson) {
                 if (!timedOut && solutionJson.length > 0) {
                     var elapsed = new Date().getTime() - started.getTime();
                     if (elapsed > challenge.timeout) {
@@ -54,7 +55,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                         }
                     }
                 }
-            });
+            })
         });
         request.end();
     };

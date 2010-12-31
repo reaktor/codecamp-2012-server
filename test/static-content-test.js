@@ -5,7 +5,8 @@ var vows = require('vows'),
     http = require('http'),
     assert = require('assert'),
     fs = require('fs'),
-    TestServer = require('./test-server').TestServer;
+    TestServer = require('./test-server').TestServer,
+    extractContent = require('../src/contentextractor').extractContent;
 
 var testServer = new TestServer()
 
@@ -15,12 +16,8 @@ function fetchOverHttp(path, callback) {
     var request = httpClient.request('GET', path, {host: 'localhost'});
     request.connection.setTimeout(1000);
     request.on('response', function (response) {
-        var content = '';
         response.setEncoding('utf8');
-        response.on('data', function (chunk) {
-            content += chunk;
-        });
-        response.on('end', function() {
+        extractContent(response, function(content) {
             callback(content);
         });
     });

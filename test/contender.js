@@ -1,7 +1,8 @@
 var http = require('http'),
         fs = require('fs'),
         _ = require('underscore'),
-        util = require('util');
+        util = require('util'),
+        extractContent = require('../src/contentextractor').extractContent;
 var nextAvailablePort = 8200;
 // (Challenge -> Object) -> Unit
 function Contender(resultStrategy) {
@@ -17,11 +18,7 @@ function Contender(resultStrategy) {
         return this;
     };
     this.handler = function (req, res) {
-        var challengeJson = '';
-        req.on('data', function (chunk) {
-            challengeJson += chunk;
-        });
-        req.on('end', function() {
+        extractContent(req, function(challengeJson) {
             setTimeout(function() {
                 var challenge = JSON.parse(challengeJson);
                 testClient.challenges.push(challenge);
@@ -31,7 +28,7 @@ function Contender(resultStrategy) {
                 res.write(resultJson);
                 res.end();
             }, testClient.timeout);
-        });
+        })
     };
     this.config = function() {
         return { 'host': this.host, 'port': this.port, 'name' : "TestContender" + this.port };

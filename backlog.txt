@@ -29,11 +29,12 @@ IN REVIEW
 
 IN PROGRESS
 
+- TODOs
+
 BACKLOG
 
 - Show values also for completed challenges
 - Jänistiimi
-- TODOs
 - Sounds
 - Visualization: show remaining time for challenge
 - Visualization: vertical centering
