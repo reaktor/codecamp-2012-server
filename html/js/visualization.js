@@ -169,11 +169,10 @@ function initHandler(initMessage) {
 }
 
 function roundStartHandler(startMessage) {
+    $('body').removeClass("splash").addClass("countdown")
     $('body').append('<img id="countdown-image" class="fullscreen-image" src="images/countdown_anim.gif"/>')
-    $('#splash-image').hide();
     setTimeout(function() {
-        $('#countdown-image').hide();
-        $('.result-table').removeClass('hidden');
+        $('body').removeClass("countdown").addClass("competition")
     }, 5000)
 }
 

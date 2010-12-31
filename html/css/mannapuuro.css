@@ -1,4 +1,4 @@
-.template, .hidden {
+.template {
   display: none;
 }
 body {
@@ -7,9 +7,17 @@ body {
 }
 .fullscreen-image {
   margin: auto;
+  display: none;
+}
+.splash #splash-image {
   display: block;
 }
-.result-table {
+.countdown #countdown-image {
+  display: block;
+}
+
+#result-table {
+  display: none;
   margin: auto;
   background: #454545;
   border: 0;
@@ -17,7 +25,12 @@ body {
   border-bottom: 1px solid #626262;
   border-right: 1px solid #626262;
 }
-.result-table td, .result-table th {
+
+.competition #result-table {
+  display: table;
+}
+
+#result-table td, #result-table th {
   color: #fff;
   padding: 8px;
   border-top: 1px solid #626262;

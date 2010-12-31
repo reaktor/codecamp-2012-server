@@ -19,6 +19,8 @@ DONE
 - Visualization: indicate failed teams
 - Accept 0 value
 - Visualization: Sums up results of 5 challenges
+- Visualization: Splash screen, countdown
+- Visualization: emphasize overall winner (gold, silver, bronze)
 
 IN REVIEW
 
@@ -29,9 +31,8 @@ IN PROGRESS
 BACKLOG
 
 - Visualization: emphasize challenge winner
-- Visualization: emphasize overall winner even moar
 - Visualization: fancy animations
-- Visualization: Splash screen, click to start
+- Visualization: Click to start
 - Visualization: show remaining time for challenge
 - Balaillaan Saurin kanssa
 - TODOs
