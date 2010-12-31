@@ -23,12 +23,12 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
         var httpClient = http.createClient(contender.port, contender.host);
         var request = httpClient.request('POST', '/', {'host': contender.host});
         request.write(challenge.toJSON());
-        // TODO: re-enable timeout properly. this impl seems to cause error when timeout actually occurs.
-        //request.connection.setTimeout(challenge.timeout);
+        request.connection.setTimeout(challenge.timeout);
+        var timedOut = false;
         request.connection.on('timeout', function() {
-           log("Timeout")
+            log("Timeout")
+            timedOut = true
             failContender(contender);
-            request.end();
         });
         request.on('response', function (response) {
             var solutionJson = '';
@@ -37,7 +37,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                 solutionJson += chunk;
             });
             response.on('end', function() {
-                if (solutionJson.length > 0) {
+                if (!timedOut && solutionJson.length > 0) {
                     var elapsed = new Date().getTime() - started.getTime();
                     if (elapsed > challenge.timeout) {
                         log("Failed because of elapsed time " + elapsed + " > " + challenge.timeout);
