@@ -32,7 +32,11 @@ var Pihtari = function(handler) {
         }
     })
     return function(message) {
-        queue.push(message)
+        if (message.message == 'init') {
+            handler(message);
+        } else {
+            queue.push(message)
+        }
     }
 }
 var Default = function(handler) {
@@ -163,6 +167,11 @@ function initHandler(initMessage) {
         contenderMapper.associate(element, contenderName)
     })
 }
+
+function roundStartHandler(startMessage) {
+    $('.result-table').removeClass('hidden');
+}
+
 function challengeStartHandler(startMessage) {
     challengeMapper.rowFor(startMessage.challengeName).removeClass("not-started").addClass("current");
 }
@@ -202,6 +211,7 @@ function roundEndHandler(roundEndMessage) {
 
 var handlers = {
     init : initHandler,
+    roundStart : roundStartHandler,
     challengeStart : challengeStartHandler,
     contenderFail : contenderFailHandler,
     contenderReady : contenderReadyHandler,
