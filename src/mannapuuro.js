@@ -195,7 +195,8 @@ var Challenger = function(config, challenge, contenderCompletionListener, messag
         var httpClient = http.createClient(contender.port, contender.host);
         var request = httpClient.request('POST', '/', {'host': contender.host});
         request.write(challenge.toJSON());
-        request.connection.setTimeout(challenge.timeout);
+        // TODO: re-enable timeout properly. this impl seems to cause error when timeout actually occurs.
+        //request.connection.setTimeout(challenge.timeout);
         request.connection.on('timeout', function() {
            log("Timeout")
             failContender(contender);
