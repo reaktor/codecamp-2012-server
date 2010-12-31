@@ -16,10 +16,7 @@ function fetchOverHttp(path, callback) {
     var request = httpClient.request('GET', path, {host: 'localhost'});
     request.connection.setTimeout(1000);
     request.on('response', function (response) {
-        response.setEncoding('utf8');
-        extractContent(response, function(content) {
-            callback(content);
-        });
+        extractContent(response, callback, 'utf8');
     });
     request.end();
 }
