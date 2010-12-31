@@ -35,6 +35,17 @@ var Pihtari = function(handler) {
         queue.push(message)
     }
 }
+var Default = function(handler) {
+    return function(message) {
+        if (message.message == 'challengeEnd') {
+            setTimeout(function() {
+                handler(message);
+            }, 5000)
+        } else {
+            handler(message);
+        }
+    }
+}
 
 var Router = function(handlers) {
     function wrap(handler) {
@@ -44,7 +55,7 @@ var Router = function(handlers) {
         if (document.location.search == "?handbrake") {
             return new Handbrake(handler)
         }
-        return handler;
+        return new Default(handler);
     }
     function onMessage(message) {
         var handler = handlers[message.message];
