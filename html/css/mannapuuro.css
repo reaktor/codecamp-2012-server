@@ -9,10 +9,10 @@ body {
   margin: auto;
   display: none;
 }
-.splash #splash-image {
+#splash #splash-image {
   display: block;
 }
-.countdown #countdown-image {
+#countdown #countdown-image {
   display: block;
 }
 
@@ -26,7 +26,7 @@ body {
   border-right: 1px solid #626262;
 }
 
-.competition #result-table {
+#competition #result-table {
   display: table;
 }
 
