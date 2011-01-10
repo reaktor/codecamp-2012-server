@@ -24,6 +24,7 @@ DONE
 - Visualization: make it pretty
 - Visualization: Click to start
 - Validate solutions (duplicate ids etc, see todos)
+- Jänistiimi
 
 IN REVIEW
 
@@ -34,7 +35,6 @@ IN PROGRESS
 BACKLOG
 
 - Show values also for completed challenges
-- Jänistiimi
 - Sounds
 - Visualization: show remaining time for challenge
 - Visualization: vertical centering
