@@ -20,8 +20,7 @@ var Main = function(config, round) {
         start : start,
         close : function() {
             httpServer.close()
-        },
-        registerMessageHandler : visualizationServer.registerMessageHandler
+        }
     };
 }
 exports.Main = Main
