@@ -25,16 +25,15 @@ DONE
 - Visualization: Click to start
 - Validate solutions (duplicate ids etc, see todos)
 - Jänistiimi
+- Show values also for completed challenges
 
 IN REVIEW
 
 IN PROGRESS
 
-- TODOs
-
 BACKLOG
 
-- Show values also for completed challenges
+- TODOs
 - Sounds
 - Visualization: show remaining time for challenge
 - Visualization: vertical centering
