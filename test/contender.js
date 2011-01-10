@@ -13,7 +13,7 @@ function Contender(resultStrategy) {
     var testClient = this;
     this.start = function() {
         this.server = http.createServer(this.handler);
-        this.server.listen(this.port, this.host);
+        this.server.listen(this.port);
         console.log('Contender running at http://' + this.host + ':' + this.port + '/');
         return this;
     };
