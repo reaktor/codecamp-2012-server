@@ -18,9 +18,7 @@ var Main = function(config, round) {
     var visualizationServer = new VisualizationServer(httpServer, start)
     return {
         start : start,
-        close : function() {
-            httpServer.close()
-        }
+        stop : function() { httpServer.close() }
     };
 }
 exports.Main = Main
