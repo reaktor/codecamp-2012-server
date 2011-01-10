@@ -66,22 +66,29 @@ body {
 .total-results .rank-3 { background-image : url("../images/bronze.png"); background-repeat : no-repeat;}
 
 .challenge-results .contender-result { text-align : center; }
-.challenge-results .contender-result > div { display: none; }
-.challenge-results.completed .contender-result .score { display: block; font-size: 1.33em; }
+.challenge-results .contender-result .score { display: block; font-size: 1.33em; }
 .challenge-results.completed img.fail { display: none; }
 .challenge-results.current .contender-result .result { display: block; }
 .fail .value-graph { display : none; }
+.challenge-results .contender-result .result .weight { display : none; }
+.challenge-results.current .contender-result .result .weight { display : block; }
+
 .challenge-results.current .contender-result .result .value-graph {
   height : 6em;
   margin-top: 1.5em;
 }
+.challenge-results .contender-result .result .value-bar {
+  margin: 0 auto;
+  width: 62px;
+}
+.challenge-results .contender-result .result { float : right; width : 80px; }
+.challenge-results .contender-result .score { float : right; }
+
 .challenge-results.current .contender-result .result .value-bar {
   -moz-border-radius: 3px;
   border-radius: 3px;
   background-image:url('../images/green-bar.png');
   background-repeat:repeat-y;
-  margin: 0 auto;
-  width: 62px;
 }
 .challenge-results.current .contender-result.rabbit .value-bar {
   background-image:url('../images/yellow-bar.png');
