@@ -22,6 +22,7 @@ exports.RoundRunner = function(config, round, messageHandler, bookKeeper) {
         var remainingContenders = config.contenders.length;
         var challengeResults = {}
         var contenderCompletionHandler = function(challenge, contender, result) {
+            result.rabbit = contender.isRabbit()
             challengeResults[contender.name] = result;
             remainingContenders--;
             if(remainingContenders == 0) {

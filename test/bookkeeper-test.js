@@ -2,9 +2,9 @@
  * Test for the bookkeeper.
  */
 var vows = require('vows'),
-        assert = require('assert'),
-        util = require('util'),
-        BookKeeper = require('../src/bookkeeper').BookKeeper;
+    assert = require('assert'),
+    util = require('util'),
+    BookKeeper = require('../src/bookkeeper').BookKeeper;
 var bookkeeper = new BookKeeper();
 var challenge1 = {name : "Eka"};
 var challenge2 = {name : "Toka"};
