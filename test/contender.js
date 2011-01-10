@@ -6,14 +6,13 @@ var http = require('http'),
 var nextAvailablePort = 8200;
 // (Challenge -> Object) -> Unit
 function Contender(resultStrategy) {
-    this.host = '127.0.0.1';
     this.challenges = [];
     this.timeout = 0;
     this.port = nextAvailablePort++;
     var testClient = this;
     this.start = function() {
         this.server = http.createServer(this.handler);
-        this.server.listen(this.port);
+        this.server.listen(this.port, this.host);
         console.log('Contender running at http://' + this.host + ':' + this.port + '/');
         return this;
     };

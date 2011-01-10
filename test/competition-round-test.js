@@ -12,11 +12,11 @@ var vows = require('vows'),
     TestServer = require('./test-server').TestServer,
     sendMessage = require('./websocket-client').sendMessage;
 
-var nonResponsive = contender.ContenderWithEmptyResponse(100).start();
-var responsiveWithResultWithinBounds = contender.ContenderWhichReturnsNFirstItemsFromChallenge(1).start();
-var responsiveWithOverweightResult = contender.ContenderWhichReturnsNFirstItemsFromChallenge(2).start();
-var responsiveWithDiipaDaapaResult = contender.ContenderWithFixedResponse({"anything": "whatever"}).start();
-var rabbit = contender.ContenderWhichReturnsNFirstItemsFromChallenge(1).start();
+var nonResponsive = contender.ContenderWithEmptyResponse(100);
+var responsiveWithResultWithinBounds = contender.ContenderWhichReturnsNFirstItemsFromChallenge(1);
+var responsiveWithOverweightResult = contender.ContenderWhichReturnsNFirstItemsFromChallenge(2);
+var responsiveWithDiipaDaapaResult = contender.ContenderWithFixedResponse({"anything": "whatever"});
+var rabbit = contender.ContenderWhichReturnsNFirstItemsFromChallenge(1);
 rabbit.rabbit = true;
 
 var contenders = [
@@ -25,6 +25,12 @@ var contenders = [
     responsiveWithOverweightResult,
     responsiveWithDiipaDaapaResult,
     rabbit];
+
+contenders.forEach(function(contender) {
+  // Set host explicitly, because otherwise it seems to take about 1 second to get a reply to the first challenge. Makes no sense.
+  contender.host = '127.0.0.1'
+  contender.start()
+})
 
 var testServer = new TestServer(contenders)
 var config = testServer.config
