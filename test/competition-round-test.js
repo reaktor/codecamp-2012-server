@@ -16,12 +16,15 @@ var nonResponsive = contender.ContenderWithEmptyResponse(100).start();
 var responsiveWithResultWithinBounds = contender.ContenderWhichReturnsNFirstItemsFromChallenge(1).start();
 var responsiveWithOverweightResult = contender.ContenderWhichReturnsNFirstItemsFromChallenge(2).start();
 var responsiveWithDiipaDaapaResult = contender.ContenderWithFixedResponse({"anything": "whatever"}).start();
+var rabbit = contender.ContenderWhichReturnsNFirstItemsFromChallenge(1).start();
+rabbit.rabbit = true;
 
 var contenders = [
     nonResponsive,
     responsiveWithResultWithinBounds,
     responsiveWithOverweightResult,
-    responsiveWithDiipaDaapaResult];
+    responsiveWithDiipaDaapaResult,
+    rabbit];
 
 var testServer = new TestServer(contenders)
 var config = testServer.config
@@ -46,7 +49,7 @@ var initialization = {
     "When visualization client connects" :
             expectMessage("initialization message is sent", {
                 message : "init",
-                contenders : ["TestContender8200", "TestContender8201", "TestContender8202", "TestContender8203"],
+                contenders : [{name : "TestContender8200"}, {name : "TestContender8201"}, {name : "TestContender8202"}, { name : "TestContender8203"}, {name : "TestContender8204", rabbit : true}],
                 challenges : [{name : "Eka", numberOfItems : 2, capacity : 99}, {name : "Toka", numberOfItems : 2, capacity: 991}]})
 };
 
@@ -63,7 +66,7 @@ var firstChallengeStart = {
 var firstChallengeResults = {
     "When contenders finish first challenge" : {
         topic : function() {
-            messageBatcher.waitForMessages(4, this.callback);
+            messageBatcher.waitForMessages(5, this.callback);
         },
 
         'timeout was 50ms': function(_, _) {
@@ -120,7 +123,7 @@ var secondChallengeStart = {
 var secondChallengeResults = {
     "When contenders finish second challenge" : {
         topic : function() {
-            messageBatcher.waitForMessages(4, this.callback);
+            messageBatcher.waitForMessages(5, this.callback);
         },
 
         'timeout was 150ms': function(_, _) {

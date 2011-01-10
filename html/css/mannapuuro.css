@@ -40,6 +40,11 @@ body {
   font-size: 0.9em;
   width: 6em;
 }
+
+#result-table td.rabbit, #result-table th.rabbit {
+  background: #3a3a3a;
+}
+
 .challenge-results.not-started td {color: #8f8f8f}
 .challenge-results.current {
   height: 7em;
@@ -78,6 +83,10 @@ body {
   margin: 0 auto;
   width: 62px;
 }
+.challenge-results.current .contender-result.rabbit .value-bar {
+  background-image:url('../images/yellow-bar.png');
+}
+
 .challenge-results.current .contender-result .result .value-bar .value {
   position: relative;
   top: -1.4em;

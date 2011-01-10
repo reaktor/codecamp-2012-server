@@ -1,5 +1,5 @@
 var _ = require('underscore'),
-    util = require('util');
+    inspect = require('util').inspect;
 var Scorer = function(scoring) {
 	function zipAsObject(keys, values) {
 		var hash = {}
@@ -20,16 +20,16 @@ var Scorer = function(scoring) {
         return cs.concat(_.map(_.range(toSize - cs.length), function(_) { return padding}))
     }
 	// (Contender -> Result) -> (Contender -> int)
-    var score = function(challengeResults) {
+    function score(challengeResults) {
 	    var coupled = _.map(challengeResults, function(result, id) { return {id : id, ok : result.ok, value : result.value}})
-        var sorted = _.sortBy(coupled, function(result) { return (result.ok) ? -result.value : 1 })
-		var accepted = _.select(sorted, function(result) {return result.ok})
-		var limited = _.first(accepted, scoring.length);
-        var scores = distributeScores(limited, scoring);
-        var padded = pad(scores, 0, coupled.length);
-		var ids = _.pluck(sorted, "id")
-		var result = zipAsObject(ids, padded);
-		return result;
+      var sorted = _.sortBy(coupled, function(result) { return (result.ok) ? -result.value : 1 })
+		  var accepted = _.select(sorted, function(result) {return result.ok })
+		  var limited = _.first(accepted, scoring.length);
+      var scores = distributeScores(limited, scoring);
+      var padded = pad(scores, 0, coupled.length);
+		  var ids = _.pluck(sorted, "id")
+		  var result = zipAsObject(ids, padded);
+		  return result;
 	}
 	return {
 		score : score

@@ -36,7 +36,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
             });
             request.end();
         }
-        function solutionHandler(solutionJson) {
+        function handleSolution(solutionJson) {
             if (!timedOut && solutionJson.length > 0) {
                 var elapsed = new Date().getTime() - started.getTime();
                 if (elapsed > challenge.timeout) {
@@ -55,7 +55,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                 }
             }
         }
-        var request = sendChallenge(solutionHandler);
+        var request = sendChallenge(handleSolution);
     };
     return {
         // Unit -> Coordinator

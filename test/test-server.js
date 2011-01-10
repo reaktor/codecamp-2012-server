@@ -27,7 +27,7 @@ var TestServer = function(optionalContenders) {
             'After tests' : {
                 'Shut down server' : function() {
                     console.log("Shutting down server..")
-                    main.close();
+                    main.stop();
                 },
 
                 'Shut down contenders' : function() {

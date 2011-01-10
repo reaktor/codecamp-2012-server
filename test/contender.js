@@ -31,7 +31,7 @@ function Contender(resultStrategy) {
         })
     };
     this.config = function() {
-        return { 'host': this.host, 'port': this.port, 'name' : "TestContender" + this.port };
+        return { 'host': this.host, 'port': this.port, 'name' : "TestContender" + this.port, rabbit : this.rabbit };
     }
     this.id = function() {
         return this.config().name;

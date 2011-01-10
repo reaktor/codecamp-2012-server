@@ -85,13 +85,16 @@ var challengeMapper;
 var ContenderMapper = function(initMessage) {
     function contenderId(contenderName) {
         for (i in initMessage.contenders) {
-            if (initMessage.contenders[i] == contenderName) {
+            if (initMessage.contenders[i].name == contenderName) {
                 return i;
             }
         }
     }
-    function associate(element, contenderName) {
-        element.addClass('contender-' + contenderId(contenderName))
+    function associate(element, contender) {
+        element.addClass('contender-' + contenderId(contender.name))
+        if (contender.rabbit) {
+          element.addClass('rabbit')
+        }
     }
     function totalScoreCellFor(contenderName) {
         return $('.contender-total.contender-' + contenderId(contenderName))
@@ -143,8 +146,9 @@ function initHandler(initMessage) {
     contenderMapper = new ContenderMapper(initMessage);
     resultMapper = new ResultMapper(initMessage);
     valueVisualizer = new ValueVisualizer(initMessage);
-    Template.renderElements($('#contenders'), "contenders-name", initMessage.contenders, function(contenderName, element) {
-        element.text(contenderName)
+    Template.renderElements($('#contenders'), "contenders-name", initMessage.contenders, function(contender, element) {
+        element.text(contender.name)
+        contenderMapper.associate(element, contender)
     })
     Template.renderElements($('#results'), "challenge-results", initMessage.challenges, function(challenge, challengeRow) {
         var cell = $('.challenge-name', challengeRow);
@@ -152,12 +156,12 @@ function initHandler(initMessage) {
         cell.find(".ordinal").text("Tehtävä " + (initMessage.challenges.indexOf(challenge) + 1));
         challengeMapper.associate(challengeRow, challenge.name);
         challengeRow.addClass("not-started")
-        Template.renderElements(challengeRow, "contender-result", initMessage.contenders, function(contenderName, contenderResultElement) {
-            contenderMapper.associate(contenderResultElement, contenderName)
+        Template.renderElements(challengeRow, "contender-result", initMessage.contenders, function(contender, contenderResultElement) {
+            contenderMapper.associate(contenderResultElement, contender)
         })
     })
-    Template.renderElements($('.total-results'), "contender-total", initMessage.contenders, function(contenderName, element) {
-        contenderMapper.associate(element, contenderName)
+    Template.renderElements($('.total-results'), "contender-total", initMessage.contenders, function(contender, element) {
+        contenderMapper.associate(element, contender)
     })
 }
 
@@ -192,6 +196,7 @@ function challengeEndHandler(endMessage) {
         resultCell.children(".score").text(score)
     })
     _.each(endMessage.cumulativeScores, function(score, contenderName) {
+        console.log("Score for " + contenderName)
         var cell = contenderMapper.totalScoreCellFor(contenderName);
         cell.text(score)
     })
