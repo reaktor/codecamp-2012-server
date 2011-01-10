@@ -21,9 +21,9 @@ var Scorer = function(scoring) {
     }
 	// (Contender -> Result) -> (Contender -> int)
     function score(challengeResults) {
-	    var coupled = _.map(challengeResults, function(result, id) { return {id : id, ok : result.ok, value : result.value, rabbit : result.rabbit}})
-      var sorted = _.sortBy(coupled, function(result) { return (result.ok && !result.rabbit) ? -result.value : 1 })
-		  var accepted = _.select(sorted, function(result) {return result.ok && !result.rabbit})
+	    var coupled = _.map(challengeResults, function(result, id) { return {id : id, ok : result.ok, value : result.value}})
+      var sorted = _.sortBy(coupled, function(result) { return (result.ok) ? -result.value : 1 })
+		  var accepted = _.select(sorted, function(result) {return result.ok })
 		  var limited = _.first(accepted, scoring.length);
       var scores = distributeScores(limited, scoring);
       var padded = pad(scores, 0, coupled.length);

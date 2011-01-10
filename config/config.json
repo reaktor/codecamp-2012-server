@@ -17,6 +17,7 @@
     {
         "host":"localhost",
         "port":8127,
-        "name":"Eduard Khil"
+        "name":"Jänistiimi",
+        "rabbit":true
     }
 ],"server":{"port":9999},"scoring":[10,6,4,3,2,1]}

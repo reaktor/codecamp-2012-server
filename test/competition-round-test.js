@@ -49,7 +49,7 @@ var initialization = {
     "When visualization client connects" :
             expectMessage("initialization message is sent", {
                 message : "init",
-                contenders : ["TestContender8200", "TestContender8201", "TestContender8202", "TestContender8203", "TestContender8204"],
+                contenders : [{name : "TestContender8200"}, {name : "TestContender8201"}, {name : "TestContender8202"}, { name : "TestContender8203"}, {name : "TestContender8204", rabbit : true}],
                 challenges : [{name : "Eka", numberOfItems : 2, capacity : 99}, {name : "Toka", numberOfItems : 2, capacity: 991}]})
 };
 
@@ -104,15 +104,13 @@ var firstChallengeEnd = {
                 "TestContender8201": 10,
                 "TestContender8200": 0,
                 "TestContender8202": 0,
-                "TestContender8203": 0,
-                "TestContender8204": 0
+                "TestContender8203": 0
             },
             cumulativeScores: {
                 "TestContender8201": 10,
                 "TestContender8200": 0,
                 "TestContender8202": 0,
-                "TestContender8203": 0,
-                "TestContender8204": 0
+                "TestContender8203": 0
             }
         })
 };
@@ -147,15 +145,13 @@ var secondChallengeEnd = {
                 "TestContender8201": 10,
                 "TestContender8200": 6,
                 "TestContender8202": 0,
-                "TestContender8203": 0,
-                "TestContender8204": 0
+                "TestContender8203": 0
             },
             cumulativeScores: {
                 "TestContender8201": 20,
                 "TestContender8200": 6,
                 "TestContender8202": 0,
-                "TestContender8203": 0,
-                "TestContender8204": 0
+                "TestContender8203": 0
             }
         })
 };

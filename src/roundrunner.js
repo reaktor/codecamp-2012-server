@@ -7,12 +7,23 @@ var _ = require('underscore'),
 exports.RoundRunner = function(config, round, messageHandler, bookKeeper) {
     messageHandler({
         message: "init",
-        contenders : _.pluck(config.contenders, "name"),
+        contenders : _.map(config.contenders, function(contender) { return {name : contender.name, rabbit : contender.rabbit}}),
         challenges : _.map(round.challenges, function(challenge) {
             return { name : challenge.name, capacity : challenge.capacity, numberOfItems : challenge.contents.length}
         })
     });
     messageHandler({message: "roundStart"})
+
+    // (contenderName -> Result) -> (contenderName -> Result)
+    function withoutRabbits(results) {
+      nonRabbitNames = _.pluck(_.select(config.contenders, function(contender) {return !contender.rabbit}), "name");
+      function mapAsObject(ary, mapping) {
+        var result = {}
+        ary.forEach(function(element) { result[element] = mapping(element)})
+        return result;
+      }
+      return mapAsObject(nonRabbitNames, function(contenderName) { return results[contenderName]})
+    }
 
     var sendChallenges = function(remainingChallenges) {
         if(remainingChallenges.length == 0) {
@@ -22,11 +33,10 @@ exports.RoundRunner = function(config, round, messageHandler, bookKeeper) {
         var remainingContenders = config.contenders.length;
         var challengeResults = {}
         var contenderCompletionHandler = function(challenge, contender, result) {
-            result.rabbit = contender.isRabbit()
             challengeResults[contender.name] = result;
             remainingContenders--;
             if(remainingContenders == 0) {
-                var scores = Scorer(config.scoring).score(challengeResults)
+                var scores = Scorer(config.scoring).score(withoutRabbits(challengeResults))
                 bookKeeper.record(challenge, scores);
                 messageHandler({message : "challengeEnd", challengeName : challenge.name, scores : scores, cumulativeScores : bookKeeper.getCumulativeScores(challenge)});
                 sendChallenges(_.tail(remainingChallenges));

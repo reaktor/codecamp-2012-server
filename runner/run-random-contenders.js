@@ -10,5 +10,5 @@ function startContender(contender, contenderConfig) {
 
 startContender(cont.RandomContender().setDelay(1000), config.contenders[0]);
 startContender(cont.RandomContender().setDelay(2000), config.contenders[1]);
-startContender(cont.RandomContender().setDelay(3000), config.contenders[2]);
-startContender(cont.ContenderWithEmptyResponse(5000), config.contenders[3]);
+startContender(cont.RandomContender().setDelay(5000), config.contenders[2]);
+startContender(cont.RandomContender().setDelay(3000), config.contenders[3]);

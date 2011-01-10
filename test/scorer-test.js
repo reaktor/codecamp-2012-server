@@ -44,16 +44,6 @@ var scorerTests = {
 			};
 			assert.deepEqual(scorer.Scorer(scoring).score(results), {winner1 : 10, winner2 : 10, third : 4, loser : 0});
 		}
-	},
-  'With rabbit' : {
-    'Ignores rabbit in scoring' : function() {
-      var results = {
-				rabbit : { value : 10, ok : true, rabbit : true },
-				nonRabbit : { value : 5, ok : true }
-			};
-			assert.deepEqual(scorer.Scorer(scoring).score(results), {nonRabbit : 10, rabbit : 0});
-    }
-  }
-
+	}
 }
 vows.describe('When scoring').addBatch(scorerTests).export(module);
