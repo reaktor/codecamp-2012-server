@@ -44,17 +44,6 @@ var Pihtari = function(handler) {
         }
     }
 }
-var Default = function(handler) {
-    return function(message) {
-        if (message.message == 'challengeEnd') {
-            setTimeout(function() {
-                handler(message);
-            }, 5000)
-        } else {
-            handler(message);
-        }
-    }
-}
 
 var Router = function(connector, handlers) {
     function wrap(handler) {
@@ -64,7 +53,7 @@ var Router = function(connector, handlers) {
         if (document.location.search == "?handbrake") {
             return new Handbrake(handler)
         }
-        return new Default(handler);
+        return handler;
     }
     function onMessage(message) {
         var handler = handlers[message.message];
@@ -199,7 +188,9 @@ function contenderReadyHandler(readyMessage) {
 }
 
 function challengeEndHandler(endMessage) {
-    challengeMapper.rowFor(endMessage.challengeName).removeClass("current").addClass("completed");
+    setTimeout(function() {
+        challengeMapper.rowFor(endMessage.challengeName).removeClass("current").addClass("completed");
+    }, 5000)
     _.each(endMessage.scores, function(score, contenderName) {
         var resultCell = resultMapper.resultCellFor(endMessage.challengeName, contenderName)
         resultCell.children(".score").text(score)

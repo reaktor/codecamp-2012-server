@@ -45,3 +45,4 @@ BACKLOG
 - Visualization: fancy animations
 - Validate configuration (unique contender and challenge names)
 - Generates data based on parameters given in round configuration (number of items, bag size, weight and value distributions)
+- Log entry data for each challenge
