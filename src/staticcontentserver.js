@@ -11,6 +11,7 @@ exports.StaticContentServer = function() {
             response.end();
         }
         var uri = url.parse(req.url).pathname;
+        if (uri.length == 0 || uri == "/") uri = "/index.html";
         req.on('end', function() {
             var filename = "html" + uri;
             path.exists(filename, function(exists) {
