@@ -6,5 +6,5 @@ exports.AcceptedResult = function(value, weight) {
     return Result(true, value, weight);
 }
 exports.FailedResult = function() {
-    return Result(false, 0, 0);
+    return Result(false, 0, [0]);
 }

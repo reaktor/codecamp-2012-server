@@ -22,15 +22,28 @@ exports.Challenge = function(challenge) {
         if (!_.isEqual(_.uniq(itemIds), itemIds)) return new FailedResult()
         var chosenItems = itemIds.map(itemById);
         if (chosenItems.length != _.compact(chosenItems).length) return new FailedResult()
-        var weight = sum(chosenItems, function(i) { return i.weight });
-        if (weight > challenge.capacity) {
-            return new FailedResult()
-        } else {
-            var value = sum(chosenItems, function(i) {
-                return i.value
-            });
-            return new AcceptedResult(value, weight)
+
+        var dimensions = challenge.capacity.length
+        for (var d = 0; d < dimensions; d = d+1) {
+            if (!checkCapacity(chosenItems, 
+                               function(i) { return i.weight[d] }, 
+                               function() { return challenge.capacity[d] } )) {
+              return new FailedResult()
+            }
         }
+        
+        var value = sum(chosenItems, function(i) { return i.value })
+        // FIXME calculate weight
+        return new AcceptedResult(value, 0 /*weight*/)
+    }
+    // [ItemId] -> (ItemId -> Int) -> (() -> Int) -> Bool
+    var checkCapacity = function(chosenItems, weightF, capacityF) {
+        var weight = sum(chosenItems, function(i) { return weightF(i) });
+        if (weight > capacityF()) {
+            return false
+        } else {
+            return true
+        }        
     }
     return {
         name: challenge.name,
