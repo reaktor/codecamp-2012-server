@@ -189,7 +189,8 @@ function contenderReadyHandler(readyMessage) {
 
 function challengeEndHandler(endMessage) {
     setTimeout(function() {
-        challengeMapper.rowFor(endMessage.challengeName).removeClass("current").addClass("completed");
+        // This removes weight etc. data from completed results:
+        //challengeMapper.rowFor(endMessage.challengeName).removeClass("current").addClass("completed");
     }, 5000)
     _.each(endMessage.scores, function(score, contenderName) {
         var resultCell = resultMapper.resultCellFor(endMessage.challengeName, contenderName)
