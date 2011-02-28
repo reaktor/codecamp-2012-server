@@ -23,6 +23,10 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
         function sendChallenge(solutionHandler) {
             log("Sending challenge");
             var httpClient = http.createClient(contender.port, contender.host);
+            httpClient.addListener('error', function(connectionException) {
+                console.log("Connection error.");
+                failContender(contender);
+            });
             var request = httpClient.request('POST', '/', {'host': contender.host, 'Content-Type': 'application/json'});
             request.write(challenge.toJSON());
             /*request.connection.setTimeout(challenge.timeout);
