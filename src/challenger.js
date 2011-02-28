@@ -44,12 +44,17 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                     failContender(contender);
                 } else {
                     log("Got response in " + elapsed + " ms")
-                    var solution = JSON.parse(solutionJson);
-                    var result = challenge.resultFor(solution);
-                    if (result.ok) {
-                        messageHandler({message : "contenderReady", challengeName : challenge.name, contenderName : contender.name, value: result.value, weight: result.weight})
-                        contenderCompletionListener(challenge, contender, result);
-                    } else {
+                    try {
+                        var solution = JSON.parse(solutionJson);
+                        var result = challenge.resultFor(solution);
+                        if (result.ok) {
+                            messageHandler({message : "contenderReady", challengeName : challenge.name, contenderName : contender.name, value: result.value, weight: result.weight})
+                            contenderCompletionListener(challenge, contender, result);
+                        } else {
+                            failContender(contender);
+                        }
+                    } catch(e) {
+                        log("Error parsing json.");
                         failContender(contender);
                     }
                 }
