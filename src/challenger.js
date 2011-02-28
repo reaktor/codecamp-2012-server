@@ -23,7 +23,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
         function sendChallenge(solutionHandler) {
             log("Sending challenge");
             var httpClient = http.createClient(contender.port, contender.host);
-            var request = httpClient.request('POST', '/', {'host': contender.host});
+            var request = httpClient.request('POST', '/', {'host': contender.host, 'Content-Type': 'application/json'});
             request.write(challenge.toJSON());
             request.connection.setTimeout(challenge.timeout);
             request.connection.on('timeout', function() {
