@@ -117,6 +117,7 @@ var resultMapper;
 var ValueVisualizer = function(initMessage) {
     var values = {}
     var maxValues = {}
+    var minValues = {}
     function showValue(message) {
         if (!values[message.challengeName]) {
             values[message.challengeName] = {}
@@ -125,12 +126,17 @@ var ValueVisualizer = function(initMessage) {
         if (!maxValues[message.challengeName] || message.value > maxValues[message.challengeName]) {
             maxValues[message.challengeName] = message.value;
         }
+        if (!minValues[message.challengeName] || message.value < minValues[message.challengeName]) {
+            minValues[message.challengeName] = message.value;
+        }
         updateGraphs(message.challengeName);
     }
     function updateGraphs(challengeName) {
         var maxValue = Math.max(maxValues[challengeName], 1)
         _.each(values[challengeName], function(value, contenderName) {
-            var percent = Math.round(100 * value / maxValue)
+            var minValue = _.size(values[challengeName]) == 1 ? 0 : minValues[challengeName]
+            var scale = Math.max((maxValue - minValue), 1)
+            var percent = Math.round(100 * (value - minValue) / scale) + 10
             var bar = resultMapper.resultCellFor(challengeName, contenderName).find(".value-bar");
             bar.css('height', percent + "%")
             bar.css('top', (100 - percent) + "%")
