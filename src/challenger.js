@@ -37,7 +37,12 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                 failContender(contender);
             });
             request.on('response', function (response) {
-                extractContent(response, solutionHandler, 'utf8')
+                if(response.statusCode != 200) {
+                    log("wrong statuscode: " + response.statusCode)
+                    failContender(contender)
+                } else {
+                    extractContent(response, solutionHandler, 'utf8')
+                }
             });
             request.end();
         }
