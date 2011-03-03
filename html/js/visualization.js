@@ -72,13 +72,20 @@ var ChallengeMapper = function(initMessage) {
             }
         }
     }
+    function timeout(challengeName) {
+        for (i in initMessage.challenges) {
+            if (initMessage.challenges[i].name == challengeName) {
+                return initMessage.challenges[i].timeout;
+            }
+        }
+    }
     function associate(element, challengeName) {
         element.addClass('challenge-' + challengeId(challengeName))
     }
     function rowFor(challengeName) {
         return $('.challenge-results.challenge-' + challengeId(challengeName));
     }
-    return {associate: associate, rowFor : rowFor}
+    return {associate: associate, rowFor : rowFor, timeout: timeout }
 }
 var challengeMapper;
 
@@ -176,6 +183,18 @@ function roundStartHandler(startMessage) {
 }
 
 function challengeStartHandler(startMessage) {
+    var timeLeft = challengeMapper.timeout(startMessage.challengeName)
+    function clock() {
+      setTimeout(function() {
+        timeLeft = timeLeft - 1000
+        challengeMapper.rowFor(startMessage.challengeName).find(".time").html(timeLeft / 1000)
+        if (timeLeft > 0) {
+          clock()
+        }
+      }, 1000)        
+    }
+    clock()
+
     challengeMapper.rowFor(startMessage.challengeName).removeClass("not-started").addClass("current");
 }
 

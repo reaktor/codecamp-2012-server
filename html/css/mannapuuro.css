@@ -17,6 +17,11 @@ body {
   display: block;
 }
 
+.time {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
 #result-table {
   display: none;
   margin: auto;

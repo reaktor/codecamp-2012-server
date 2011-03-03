@@ -9,7 +9,7 @@ exports.RoundRunner = function(config, round, messageHandler, bookKeeper) {
         message: "init",
         contenders : _.map(config.contenders, function(contender) { return {name : contender.name, rabbit : contender.rabbit}}),
         challenges : _.map(round.challenges, function(challenge) {
-            return { name : challenge.name, capacity : challenge.capacity, numberOfItems : challenge.contents.length}
+            return { name : challenge.name, capacity : challenge.capacity, numberOfItems : challenge.contents.length, timeout: challenge.timeout }
         })
     });
     messageHandler({message: "roundStart"})
