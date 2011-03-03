@@ -66,6 +66,8 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                         failContender(contender);
                     }
                 }
+            } else {
+              failContender(contender);
             }
         }
         var request = sendChallenge(handleSolution);
