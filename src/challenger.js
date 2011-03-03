@@ -1,7 +1,8 @@
 var Contender = require('./contender').Contender,
     http = require('http'),
     FailedResult = require('./result').FailedResult,
-    extractContent = require('./contentextractor').extractContent;
+    extractContent = require('./contentextractor').extractContent,
+    fs = require('fs');
 
 // type ContenderCompletionListener : Challenge -> Contender -> Result -> Unit
 // type Messagehandler : (Object -> Unit)
@@ -41,6 +42,9 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
             request.end();
         }
         function handleSolution(solutionJson) {
+            fs.writeFile(contender + "-" + challenge + "-response.log", solutionJson, function (err) {
+                if (err) console.log(contender + "-" + challenge + "-response.log write failed.");
+            });
             if (!timedOut && solutionJson.length > 0) {
                 var elapsed = new Date().getTime() - started.getTime();
                 if (elapsed > challenge.timeout) {
