@@ -12,6 +12,9 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
     var contenders = config.contenders;
     // Contender -> Unit
     function failContender(contender) {
+        if (arguments.length == 2) {
+            console.log(contender + " failed for " + arguments[1]);
+        }
         messageHandler({message : "contenderFail", challengeName : challenge.name, contenderName : contender.name})
         contenderCompletionListener(challenge, contender, new FailedResult());
     }
@@ -25,21 +28,18 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
             log("Sending challenge");
             var httpClient = http.createClient(contender.port, contender.host);
             httpClient.addListener('error', function(connectionException) {
-                console.log("Connection error.");
-                failContender(contender);
+                failContender(contender, "Connection error.");
             });
             var request = httpClient.request('POST', '/', {'host': contender.host, 'Content-Type': 'application/json'});
             request.write(challenge.toJSON());
             request.connection.setTimeout(challenge.timeout);
             request.connection.on('timeout', function() {
-                log("Timeout")
                 timedOut = true
-                failContender(contender);
+                failContender(contender, "timeout");
             });
             request.on('response', function (response) {
                 if(response.statusCode != 200) {
-                    log("wrong statuscode: " + response.statusCode)
-                    failContender(contender)
+                    failContender(contender, "wrong statuscode: " + response.statusCode)
                 } else {
                     extractContent(response, solutionHandler, 'utf8')
                 }
@@ -53,8 +53,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
             if (!timedOut && solutionJson.length > 0) {
                 var elapsed = new Date().getTime() - started.getTime();
                 if (elapsed > challenge.timeout) {
-                    log("Failed because of elapsed time " + elapsed + " > " + challenge.timeout);
-                    failContender(contender);
+                    failContender(contender, "Failed because of elapsed time " + elapsed + " > " + challenge.timeout);
                 } else {
                     log("Got response in " + elapsed + " ms")
                     try {
@@ -64,15 +63,14 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                             messageHandler({message : "contenderReady", challengeName : challenge.name, contenderName : contender.name, value: result.value, weight: result.weight})
                             contenderCompletionListener(challenge, contender, result);
                         } else {
-                            failContender(contender);
+                            failContender(contender, "result not ok");
                         }
                     } catch(e) {
-                        log("Error parsing json.");
-                        failContender(contender);
+                        failContender(contender, "Error parsing json.");
                     }
                 }
             } else {
-              failContender(contender);
+              failContender(contender, "empty result or timeout");
             }
         }
         var request = sendChallenge(handleSolution);
