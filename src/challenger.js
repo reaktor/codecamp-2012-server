@@ -63,7 +63,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                             messageHandler({message : "contenderReady", challengeName : challenge.name, contenderName : contender.name, value: result.value, weight: result.weight})
                             contenderCompletionListener(challenge, contender, result);
                         } else {
-                            failContender(contender, "result not ok");
+                            failContender(contender, "result not ok: " + result.message);
                         }
                     } catch(e) {
                         failContender(contender, "Error parsing json.");
