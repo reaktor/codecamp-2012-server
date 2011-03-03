@@ -2,17 +2,27 @@
     {
         "host":"localhost",
         "port":8124,
-        "name":"Embreach"
+        "name":"nyytit"
     },
     {
         "host":"localhost",
         "port":8125,
-        "name":"Poika"
+        "name":"lichtblau"
     },
     {
         "host":"localhost",
         "port":8126,
-        "name":"Neon 2"
+        "name":"kala2"
+    },
+    {
+        "host":"localhost",
+        "port":8128,
+        "name":"(lol)"
+    },
+    {
+        "host":"localhost",
+        "port":8129,
+        "name":"nimeton"
     },
     {
         "host":"localhost",
