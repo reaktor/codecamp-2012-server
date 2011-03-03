@@ -143,7 +143,7 @@ var ValueVisualizer = function(initMessage) {
         _.each(values[challengeName], function(value, contenderName) {
             var minValue = _.size(_.uniq(values[challengeName])) == 1 ? 0 : minValues[challengeName]
             var scale = Math.max((maxValue - minValue), 1)
-            var percent = Math.round(100 * (value - minValue) / scale) + 10
+            var percent = Math.round(90 * (value - minValue) / scale) + 10
             var bar = resultMapper.resultCellFor(challengeName, contenderName).find(".value-bar");
             bar.css('height', percent + "%")
             bar.css('top', (100 - percent) + "%")
