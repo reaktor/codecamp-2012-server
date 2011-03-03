@@ -1,31 +1,31 @@
 {"contenders":[
     {
-        "host":"localhost",
-        "port":8124,
+        "host":"10.101.101.231",
+        "port":8080,
         "name":"nyytit"
     },
     {
-        "host":"localhost",
-        "port":8125,
+        "host":"10.101.101.240",
+        "port":8000,
         "name":"lichtblau"
     },
     {
-        "host":"localhost",
-        "port":8126,
-        "name":"kala2"
+        "host":"10.101.101.241",
+        "port":8080,
+        "name":"Kala2"
     },
     {
-        "host":"localhost",
-        "port":8128,
+        "host":"10.101.101.150",
+        "port":8080,
         "name":"(lol)"
     },
     {
-        "host":"localhost",
-        "port":8129,
-        "name":"nimeton"
+        "host":"10.101.101.173",
+        "port":8888,
+        "name":"Scandinavian Haskell Rescue"
     },
     {
-        "host":"localhost",
+        "host":"10.101.101.158",
         "port":8127,
         "name":"Jänistiimi",
         "rabbit":true

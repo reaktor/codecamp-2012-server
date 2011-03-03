@@ -30,12 +30,12 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
             });
             var request = httpClient.request('POST', '/', {'host': contender.host, 'Content-Type': 'application/json'});
             request.write(challenge.toJSON());
-            /*request.connection.setTimeout(challenge.timeout);
+            request.connection.setTimeout(challenge.timeout);
             request.connection.on('timeout', function() {
                 log("Timeout")
                 timedOut = true
                 failContender(contender);
-            });*/
+            });
             request.on('response', function (response) {
                 extractContent(response, solutionHandler, 'utf8')
             });
