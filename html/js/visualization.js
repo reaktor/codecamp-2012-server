@@ -141,7 +141,7 @@ var ValueVisualizer = function(initMessage) {
     function updateGraphs(challengeName) {
         var maxValue = Math.max(maxValues[challengeName], 1)
         _.each(values[challengeName], function(value, contenderName) {
-            var minValue = _.size(values[challengeName]) == 1 ? 0 : minValues[challengeName]
+            var minValue = _.size(_.uniq(values[challengeName])) == 1 ? 0 : minValues[challengeName]
             var scale = Math.max((maxValue - minValue), 1)
             var percent = Math.round(100 * (value - minValue) / scale) + 10
             var bar = resultMapper.resultCellFor(challengeName, contenderName).find(".value-bar");
