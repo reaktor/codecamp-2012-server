@@ -18,10 +18,10 @@ exports.Challenge = function(challenge) {
     }
     // [ItemId] -> Result
     var determineResult = function(itemIds) {
-        if (!_.isArray(itemIds))  return new FailedResult()
-        if (!_.isEqual(_.uniq(itemIds), itemIds)) return new FailedResult()
+        if (!_.isArray(itemIds))  return new FailedResult("not an array")
+        if (!_.isEqual(_.uniq(itemIds), itemIds)) return new FailedResult("duplicate items")
         var chosenItems = itemIds.map(itemById);
-        if (chosenItems.length != _.compact(chosenItems).length) return new FailedResult()
+        if (chosenItems.length != _.compact(chosenItems).length) return new FailedResult("dups")
 
         var dimensions = challenge.capacity.length
         var weights = _.map(_.range(0, dimensions), function(d) {
@@ -31,7 +31,7 @@ exports.Challenge = function(challenge) {
             if (!checkCapacity(chosenItems, 
                                function(i) { return i.weight[d] }, 
                                function() { return challenge.capacity[d] } )) {
-              return new FailedResult()
+              return new FailedResult("constrait failed " + d)
             }
         }
         
