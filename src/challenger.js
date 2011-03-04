@@ -66,7 +66,7 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                             failContender(contender, "result not ok: " + result.message);
                         }
                     } catch(e) {
-                        failContender(contender, "Error parsing json.");
+                        failContender(contender, "Error parsing json: " + e);
                     }
                 }
             } else {
