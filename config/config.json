@@ -15,12 +15,12 @@
         "name":"kala2"
     },
     {
-        "host":"10.101.101.150",
+        "host":"10.101.101.149",
         "port":8080,
         "name":"(lol)"
     },
     {
-        "host":"10.101.101.244",
+        "host":"10.101.101.173",
         "port":8888,
         "name":"ScandinavianHaskellRescue"
     },
