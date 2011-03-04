@@ -56,8 +56,13 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                     failContender(contender, "Failed because of elapsed time " + elapsed + " > " + challenge.timeout);
                 } else {
                     log("Got response in " + elapsed + " ms")
+                    var solution = "";
                     try {
-                        var solution = JSON.parse(solutionJson);
+                        solution = JSON.parse(solutionJson);
+                    } catch(e) {
+                        failContender(contender, "Error parsing json: " + e);
+                        return;
+                    }
                         var result = challenge.resultFor(solution);
                         if (result.ok) {
                             messageHandler({message : "contenderReady", challengeName : challenge.name, contenderName : contender.name, value: result.value, weight: result.weight})
@@ -65,9 +70,6 @@ exports.Challenger = function(config, challenge, contenderCompletionListener, me
                         } else {
                             failContender(contender, "result not ok: " + result.message);
                         }
-                    } catch(e) {
-                        failContender(contender, "Error parsing json: " + e);
-                    }
                 }
             } else {
               failContender(contender, "empty result or timeout");

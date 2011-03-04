@@ -9,7 +9,7 @@ var Scorer = function(scoring) {
 		return hash;		
 	}
 	function distributeScores(results, scoring) {
-		if (results.length == 0) return [];
+		if (!results || results.length == 0) return [];
 		var topValue = results[0].value;
 		var winners = _.select(results, function(result) { return result.value == topValue})
 		var scoresForWinners = _.map(winners, function(_) { return scoring[0]})
