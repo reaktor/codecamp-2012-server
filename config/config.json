@@ -10,7 +10,7 @@
         "name":"lichtblau"
     },
     {
-        "host":"10.101.101.241",
+        "host":"10.101.101.163",
         "port":8080,
         "name":"kala2"
     },
@@ -20,14 +20,19 @@
         "name":"(lol)"
     },
     {
-        "host":"10.101.101.173",
+        "host":"10.101.101.179",
         "port":8888,
-        "name":"ScandinavianHaskellRescue"
+        "name":"Scandinavian Haskell Rescue"
     },
     {
         "host":"10.101.101.158",
         "port":8127,
         "name":"Jänistiimi",
         "rabbit":true
+    },
+    {
+        "host":"10.101.101.133",
+        "port":8111,
+        "name":"kakkonen"
     }
 ],"server":{"port":9999},"scoring":[10,6,4,3,2,1]}
