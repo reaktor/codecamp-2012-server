@@ -129,7 +129,7 @@ var secondChallengeStart = {
 var secondChallengeResults = {
     "When contenders finish second challenge" : {
         topic : function() {
-            messageBatcher.waitForMessages(5, this.callback);
+            messageBatcher.waitForMessages(6, this.callback);
         },
 
         'timeout was 150ms': function(_, _) {
