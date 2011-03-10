@@ -31,7 +31,7 @@ exports.Challenge = function(challenge) {
             if (!checkCapacity(chosenItems, 
                                function(i) { return i.weight[d] }, 
                                function() { return challenge.capacity[d] } )) {
-              return new FailedResult("constrait failed " + d)
+              return new FailedResult("constraint failed " + d)
             }
         }
         

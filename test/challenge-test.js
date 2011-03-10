@@ -9,28 +9,28 @@ var challenge = Challenge({
     "name": "Eka",
     "timeout":50,
     "contents":[
-        {"id":1,"weight":10,"value":100},
-        {"id":2,"weight":100,"value":200}
+        {"id":1,"weight":[10],"value":100},
+        {"id":2,"weight":[100],"value":200}
     ],
-    "capacity":99
+    "capacity":[99]
 });
 
 var resultValidation = {
     'When validating result' : {
         'Accepts correct answer' : function() {
-            assert.deepEqual(challenge.resultFor(["1"]), new AcceptedResult(100, 10));
+            assert.deepEqual(challenge.resultFor(["1"]), new AcceptedResult(100, [10]));
         },
         'Fails overweight result' : function() {
-            assert.deepEqual(challenge.resultFor(["1", "2"]), new FailedResult());
+            assert.deepEqual(challenge.resultFor(["1", "2"]), new FailedResult("constraint failed 0"));
         },
         'Fails LOL result' : function() {
-            assert.deepEqual(challenge.resultFor("LOL"), new FailedResult());
+            assert.deepEqual(challenge.resultFor("LOL"), new FailedResult("not an array"));
         },
         'Fails result containing duplicates' : function () {
-            assert.deepEqual(challenge.resultFor(["1", "1"]), new FailedResult());
+            assert.deepEqual(challenge.resultFor(["1", "1"]), new FailedResult("duplicate items"));
         },
         'Fails result containing unknown items' : function () {
-            assert.deepEqual(challenge.resultFor(["1", "3"]), new FailedResult());
+            assert.deepEqual(challenge.resultFor(["1", "3"]), new FailedResult("dups"));
         }
     }
 }
