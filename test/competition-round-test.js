@@ -56,7 +56,7 @@ var initialization = {
             expectMessage("initialization message is sent", {
                 message : "init",
                 contenders : [{name : "TestContender8200"}, {name : "TestContender8201"}, {name : "TestContender8202"}, { name : "TestContender8203"}, {name : "TestContender8204", rabbit : true}],
-                challenges : [{name : "Eka", numberOfItems : 2, capacity : 99}, {name : "Toka", numberOfItems : 2, capacity: 991}]})
+                challenges : [{name : "Eka", numberOfItems : 2, capacity : [99], timeout : 50}, {name : "Toka", numberOfItems : 2, capacity: [991], timeout : 150}]})
 };
 
 var roundStart = {
@@ -84,7 +84,7 @@ var firstChallengeResults = {
         },
 
         'client with result within bounds succeeds': function(messages, _) {
-            assertContains(messages, {message : "contenderReady", challengeName : "Eka", contenderName : "TestContender8201", value: 100, weight : 10});
+            assertContains(messages, {message : "contenderReady", challengeName : "Eka", contenderName : "TestContender8201", value: 100, weight : [10]});
         },
 
         'client with overweight result fails': function(messages, _) {
@@ -137,7 +137,7 @@ var secondChallengeResults = {
         },
 
         '100ms contender is ok with zero value': function(messages, _) {
-            assertContains(messages, {message : "contenderReady", challengeName : "Toka", contenderName : "TestContender8200", value: 0, weight : 0});
+            assertContains(messages, {message : "contenderReady", challengeName : "Toka", contenderName : "TestContender8200", value: 0, weight : [0]});
         }
     }
 };
