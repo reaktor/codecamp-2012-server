@@ -1,38 +1,23 @@
 {"contenders":[
     {
-        "host":"10.101.101.231",
-        "port":8080,
-        "name":"nyytit"
+        "host":"localhost",
+        "port":8124,
+        "name":"Embreach"
     },
     {
-        "host":"10.101.101.177",
-        "port":8000,
-        "name":"lichtblau"
+        "host":"localhost",
+        "port":8125,
+        "name":"Poika"
     },
     {
-        "host":"10.101.101.163",
-        "port":8080,
-        "name":"kala2"
+        "host":"localhost",
+        "port":8126,
+        "name":"Neon 2"
     },
     {
-        "host":"10.101.101.149",
-        "port":8080,
-        "name":"(lol)"
-    },
-    {
-        "host":"10.101.101.179",
-        "port":8888,
-        "name":"Scandinavian Haskell Rescue"
-    },
-    {
-        "host":"10.101.101.158",
+        "host":"localhost",
         "port":8127,
         "name":"Jänistiimi",
         "rabbit":true
-    },
-    {
-        "host":"10.101.101.133",
-        "port":8111,
-        "name":"kakkonen"
     }
 ],"server":{"port":9999},"scoring":[10,6,4,3,2,1]}
