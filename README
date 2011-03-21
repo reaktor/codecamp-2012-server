@@ -7,6 +7,19 @@ Plus, in your .profile:
 
 export NODE_PATH=/usr/local/lib/node/:$NODE_PATH
 
+Then
+
+source YOUR_PROFILE
+
+RUNNING A DEMO
+
+chmod u+x *.sh
+./run-random-contenders.sh
+./run-server.sh
+Open http://localhost:9999/ (tested OK with Chrome, Safari. FAIL with Firefox 3.6.8, 4.0 RC)
+Click on the logo.
+Watch the show.
+
 RUNNING TESTS
 
 ./run-tests.sh
